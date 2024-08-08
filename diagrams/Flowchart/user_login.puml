@@ -1,0 +1,25 @@
+@startuml
+|User|
+start
+:Open Login Page;
+:Enter Credentials;
+:Submit Login Form;
+
+|Server|
+:Validate Credentials;
+if (Credentials Valid) then (yes)
+  :Authenticate User;
+  :Redirect to Dashboard;
+else (no)
+  :Send Error Response;
+endif
+
+|User|
+if (Authenticated) then (yes)
+  :Show Dashboard;
+else (no)
+  :Show Error Message;
+  :Prompt User to Re-enter Credentials;
+endif
+stop
+@enduml

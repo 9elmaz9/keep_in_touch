@@ -1,0 +1,22 @@
+@startuml
+actor User
+participant "Registration Page" as RP
+participant "Server" as S
+participant "Database" as DB
+
+User -> RP: Open Registration Page
+User -> RP: Enter Details
+User -> RP: Submit Registration Form
+RP -> S: Send Registration Details
+S -> S: Validate Details
+alt Details Valid
+  S -> DB: Save User
+  DB -> S: User Saved
+  S -> RP: Send Success Response
+  RP -> User: Show Success Message
+else Details Invalid
+  S -> RP: Send Error Response
+  RP -> User: Show Error Message
+  RP -> User: Prompt Re-enter Details
+end
+@enduml

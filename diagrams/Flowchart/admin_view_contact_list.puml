@@ -1,0 +1,8 @@
+@startuml
+|Admin|
+start
+:Open Admin Dashboard;
+:Click on Contact List;
+:View List of Contacts;
+stop
+@enduml

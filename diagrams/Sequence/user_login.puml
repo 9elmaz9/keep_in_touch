@@ -1,0 +1,22 @@
+@startuml
+actor User
+participant "Login Page" as LP
+participant "Server" as S
+participant "Database" as DB
+
+User -> LP: Open Login Page
+User -> LP: Enter Credentials
+User -> LP: Submit Login Form
+LP -> S: Send Credentials
+S -> S: Validate Credentials
+alt Credentials Valid
+  S -> DB: Fetch User Details
+  DB -> S: User Details
+  S -> LP: Send Success Response
+  LP -> User: Redirect to Dashboard
+else Credentials Invalid
+  S -> LP: Send Error Response
+  LP -> User: Show Error Message
+  LP -> User: Prompt Re-enter Credentials
+end
+@enduml

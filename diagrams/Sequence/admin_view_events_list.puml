@@ -1,0 +1,14 @@
+@startuml
+actor User
+participant "User Dashboard" as UD
+participant "Server" as S
+participant "Database" as DB
+
+User -> UD: Open User Dashboard
+User -> UD: Click on Event List
+UD -> S: Request Event List
+S -> DB: Fetch Event List
+DB -> S: Event List
+S -> UD: Send Event List
+UD -> User: View List of Events
+@enduml

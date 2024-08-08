@@ -1,0 +1,13 @@
+@startuml
+User -> WebApp: Log in
+User -> WebApp: Navigate to event list
+User -> WebApp: Select event to delete
+User -> WebApp: Confirm deletion
+alt Confirmation
+  WebApp -> Database: Delete event
+  Database -> WebApp: Confirmation
+  WebApp -> User: Show success message
+else
+  WebApp -> User: Cancel deletion
+end
+@enduml

@@ -1,0 +1,25 @@
+@startuml
+actor Admin
+participant "Admin Dashboard" as AD
+participant "Server" as S
+participant "Database" as DB
+
+Admin -> AD: Open Admin Dashboard
+Admin -> AD: View User List
+Admin -> AD: Select User to Delete
+Admin -> AD: Confirm Deletion
+AD -> S: Send Deletion Request
+S -> S: Check Admin Privileges
+alt Admin Privileges Valid
+  S -> DB: Delete User
+  DB -> S: User Deleted
+  S -> DB: Delete Associated Contacts and Events
+  DB -> S: Contacts and Events Deleted
+  S -> AD: Send Success Response
+  AD -> Admin: Show Success Message
+else Admin Privileges Invalid
+  S -> AD: Send Error Response
+  AD -> Admin: Show Error Message
+  AD -> Admin: Prompt Retry Deletion
+end
+@enduml

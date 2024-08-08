@@ -1,0 +1,14 @@
+@startuml
+start
+:User logs in;
+:Navigate to contact list;
+:Select contact to delete;
+:Confirm deletion;
+if (confirmation) then (yes)
+  :Delete contact from database;
+  :Show success message;
+else (no)
+  :Cancel deletion;
+endif
+stop
+@enduml

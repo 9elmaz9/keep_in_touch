@@ -1,0 +1,23 @@
+@startuml
+actor User
+participant "Add Contact Page" as ACP
+participant "Server" as S
+participant "Database" as DB
+
+User -> ACP: Open Add Contact Page
+User -> ACP: Enter Contact Details
+User -> ACP: Upload Contact Image
+User -> ACP: Submit Contact Form
+ACP -> S: Send Contact Details
+S -> S: Validate Details
+alt Details Valid
+  S -> DB: Save Contact
+  DB -> S: Contact Saved
+  S -> ACP: Send Success Response
+  ACP -> User: Show Success Message
+else Details Invalid
+  S -> ACP: Send Error Response
+  ACP -> User: Show Error Message
+  ACP -> User: Prompt Re-enter Details
+end
+@enduml

@@ -1,0 +1,26 @@
+@startuml
+|User|
+start
+:Open Add Contact Page;
+:Enter Contact Details;
+:Upload Contact Image;
+:Submit Contact Form;
+
+|Server|
+:Validate Contact Details;
+if (Details Valid) then (yes)
+  :Save Contact to Database;
+  :Send Success Response;
+else (no)
+  :Send Error Response;
+endif
+
+|User|
+if (Success Response) then (yes)
+  :Show Success Message;
+else (no)
+  :Show Error Message;
+  :Prompt User to Re-enter Contact Details;
+endif
+stop
+@enduml

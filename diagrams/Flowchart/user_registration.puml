@@ -1,0 +1,26 @@
+@startuml
+|User|
+start
+:Open Registration Page;
+:Enter Details;
+:Submit Registration Form;
+
+|Server|
+:Validate Details;
+if (Details Valid) then (yes)
+  :Create User Account;
+  :Save User to Database;
+  :Send Success Response;
+else (no)
+  :Send Error Response;
+endif
+
+|User|
+if (Success Response) then (yes)
+  :Show Success Message;
+else (no)
+  :Show Error Message;
+  :Prompt User to Re-enter Details;
+endif
+stop
+@enduml

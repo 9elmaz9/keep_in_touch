@@ -1,0 +1,8 @@
+@startuml
+|Admin|
+start
+:Open Admin Dashboard;
+:Click on Event List;
+:View List of Events;
+stop
+@enduml

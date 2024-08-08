@@ -1,0 +1,15 @@
+@startuml
+actor User
+participant "User Dashboard" as UD
+participant "Server" as S
+participant "Database" as DB
+
+User -> UD: Open User Dashboard
+User -> UD: Click on Contact List
+UD -> S: Request Contact List
+S -> DB: Fetch Contact List
+DB -> S: Contact List
+S -> UD: Send Contact List
+UD -> User: View List of Contacts
+@enduml
+

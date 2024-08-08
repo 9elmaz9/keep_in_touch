@@ -1,0 +1,13 @@
+@startuml
+User -> WebApp: Log in
+User -> WebApp: Navigate to contact list
+User -> WebApp: Select contact to delete
+User -> WebApp: Confirm deletion
+alt Confirmation
+  WebApp -> Database: Delete contact
+  Database -> WebApp: Confirmation
+  WebApp -> User: Show success message
+else
+  WebApp -> User: Cancel deletion
+end
+@enduml

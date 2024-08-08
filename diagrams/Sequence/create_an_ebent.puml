@@ -1,0 +1,23 @@
+@startuml
+actor User
+participant "Add Event Page" as AEP
+participant "Server" as S
+participant "Database" as DB
+
+User -> AEP: Open Add Event Page
+User -> AEP: Enter Event Details
+User -> AEP: Select Associated Contact
+User -> AEP: Submit Event Form
+AEP -> S: Send Event Details
+S -> S: Validate Details
+alt Details Valid
+  S -> DB: Save Event
+  DB -> S: Event Saved
+  S -> AEP: Send Success Response
+  AEP -> User: Show Success Message
+else Details Invalid
+  S -> AEP: Send Error Response
+  AEP -> User: Show Error Message
+  AEP -> User: Prompt Re-enter Event Details
+end
+@enduml

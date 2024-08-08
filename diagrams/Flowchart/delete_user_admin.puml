@@ -1,0 +1,27 @@
+@startuml
+|Admin|
+start
+:Open Admin Dashboard;
+:View User List;
+:Select User to Delete;
+:Confirm Deletion;
+
+|Server|
+:Check Admin Privileges;
+if (Admin Privileges Valid) then (yes)
+  :Delete User from Database;
+  :Delete Associated Contacts and Events;
+  :Send Success Response;
+else (no)
+  :Send Error Response;
+endif
+
+|Admin|
+if (Success Response) then (yes)
+  :Show Success Message;
+else (no)
+  :Show Error Message;
+  :Prompt Admin to Retry Deletion;
+endif
+stop
+@enduml
