@@ -21,15 +21,15 @@ public class Event {
     private Date start;
     private String note;
     private String category;
-@ManyToOne  //     Each event is associated with one user who owns it.The user_id column in the "events" table is used as the foreign key. FK
+@ManyToOne
+//Each event is associated with one user who owns it.The user_id column in the "events" table is used as the foreign key. FK
 @JoinColumn(name = "user_id")
 @JsonIgnore
     private User user;
 
 
 
-@ManyToOne      // Each event is associated with one contact.The contact_id column in the "events" table is used as the foreign key.
-
+@ManyToOne // Each event is associated with one contact.The contact_id column in the "events" table is used as the foreign key.
 @JoinColumn(name = "contact_id")
     private Contact contact;
 

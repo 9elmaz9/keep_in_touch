@@ -27,11 +27,10 @@ public class Contact {
     @ManyToOne
     @JoinColumn(name = "user_id") // conect with user
     @JsonIgnore     // The @JsonIgnore annotation prevents this field from being serialized into JSON.
-
     private User user;
 
-    @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL, orphanRemoval = true)  //     * orphanRemoval = true ensures that if an Event is removed from the Set, it will be deleted from the database.
-
+    @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL, orphanRemoval = true)
+    //orphanRemoval = true ensures that if an Event is removed from the Set, it will be deleted from the database.
     @JsonIgnore
     private Set<Event> events = new HashSet<>();
 
