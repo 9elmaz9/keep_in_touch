@@ -1,0 +1,398 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide empty members
+left to right direction
+
+package com.example.keepintouch.entities {
+  class Contact {
+    int cid
+    String name
+    String nickName
+    String work
+    String email
+    String phone
+    String image
+    String description
+    User user
+    Set<Event> events
+    +getCid()
+    +setCid(int cid)
+    +getName()
+    +setName(String name)
+    +getNickName()
+    +setNickName(String nickName)
+    +getWork()
+    +setWork(String work)
+    +getEmail()
+    +setEmail(String email)
+    +getPhone()
+    +setPhone(String phone)
+    +getImage()
+    +setImage(String image)
+    +getDescription()
+    +setDescription(String description)
+    +getUser()
+    +setUser(User user)
+    +getEvents()
+    +setEvents(Set<Event> events)
+    +toString()
+  }
+
+  class Event {
+    Long id
+    String title
+    Date start
+    String note
+    User user
+    Contact contact
+    +getId()
+    +setId(Long id)
+    +getTitle()
+    +setTitle(String title)
+    +getStart()
+    +setStart(Date start)
+    +getNote()
+    +setNote(String note)
+    +getUser()
+    +setUser(User user)
+    +getContact()
+    +setContact(Contact contact)
+  }
+
+  class User {
+    int id
+    String name
+    String email
+    String password
+    String role
+    boolean enabled
+    String imageUrl
+    String about
+    Integer validated
+    String secretQuestion
+    String secretAnswer
+    List<Contact> contacts
+    String username
+    +getId()
+    +setId(int id)
+    +getName()
+    +setName(String name)
+    +getEmail()
+    +setEmail(String email)
+    +getPassword()
+    +setPassword(String password)
+    +getRole()
+    +setRole(String role)
+    +isEnabled()
+    +setEnabled(boolean enabled)
+    +getImageUrl()
+    +setImageUrl(String imageUrl)
+    +getAbout()
+    +setAbout(String about)
+    +getValidated()
+    +setValidated(Integer validated)
+    +getSecretQuestion()
+    +setSecretQuestion(String secretQuestion)
+    +getSecretAnswer()
+    +setSecretAnswer(String secretAnswer)
+    +getContacts()
+    +setContacts(List<Contact> contacts)
+    +getUsername()
+    +setUsername(String username)
+  }
+
+  User "1" --o "*" Contact : Composition
+  User "1" --o "*" Event : Composition
+  Contact "1" --o "*" Event : Composition
+}
+
+package com.example.keepintouch.dto {
+  class ContactDTO {
+    int cid
+    String name
+    String nickName
+    String work
+    String email
+    String phone
+    String image
+    String description
+    int userId
+  }
+
+  class EventDTO {
+    Long id
+    String title
+    Date start
+    String note
+    int userId
+    int contactId
+    String contactName
+  }
+
+  class UserDTO {
+    int id
+    String name
+    String email
+    String password
+    String role
+    boolean enabled
+    String imageUrl
+    String about
+    int validated
+    String secretQuestion
+    String secretAnswer
+  }
+}
+
+package com.example.keepintouch.dao {
+  interface ContactRepository {
+    +findContactsByUserId(int userId, Pageable pageable)
+    +findContactsByUserId(int userId)
+    +findByNameContainingAndUser(String name, User user)
+    +findByUser(User user)
+  }
+
+  interface EventRepository {
+    +findByUserId(int userId)
+  }
+
+  interface UserRepository {
+    +getUserByUserName(String email)
+    +findByNameContaining(String name)
+    +findAllUsers(Pageable pageable)
+    +findByEmail(String email)
+    +findAll(Pageable pageable)
+    +findByEmailAndSecretQuestion(String email, String secretQuestion)
+  }
+}
+
+package com.example.keepintouch.helper {
+  class Message {
+    String content
+    String type
+    +getContent()
+    +setContent(String content)
+    +getType()
+    +setType(String type)
+  }
+
+  class SessionHelper {
+    +removeMessageFromSession()
+    +removeValidationFromSession()
+  }
+}
+
+package com.example.keepintouch.mapper {
+  class ContactMapper {
+    +toDTO(Contact contact)
+    +toEntity(ContactDTO dto)
+  }
+
+  class EventMapper {
+    +toDTO(Event event)
+    +toEntity(EventDTO dto)
+  }
+
+  class UserMapper {
+    +toDTO(User user)
+    +toEntity(UserDTO dto)
+  }
+}
+
+package com.example.keepintouch.service {
+  interface ContactService {
+    +saveContact(Contact contact)
+    +findContactsByUserId(int userId, Pageable pageable)
+    +findContactsByUserId(int userId)
+    +getContactById(int id)
+    +deleteContact(Contact contact)
+    +getContactDTOById(int id)
+    +saveContactDTO(ContactDTO contactDTO)
+  }
+
+  interface EventService {
+    +saveEvent(Event event)
+    +findEventsByUserId(int userId)
+    +findEventById(Long eventId)
+    +deleteEvent(Long eventId)
+    +getEventDTOById(Long eventId)
+    +saveEventDTO(EventDTO eventDTO)
+  }
+
+  interface UserService {
+    +getUserByUsername(String username)
+    +saveUser(User user)
+    +registerUser(User user)
+    +findByEmail(String email)
+    +updatePassword(User user)
+    +getUserById(int id)
+    +getAllUsers()
+    +findByEmailAndSecretQuestion(String email, String secretQuestion)
+    +verifySecretAnswer(User user, String secretAnswer)
+    +getUserDTOById(int id)
+    +getUserDTOByUsername(String username)
+    +registerUserDTO(UserDTO userDTO)
+    +updatePassword(UserDTO userDTO)
+    +getAllUserDTOs()
+  }
+}
+
+package com.example.keepintouch.service.impl {
+  class ContactServiceImpl {
+    +saveContact(Contact contact)
+    +findContactsByUserId(int userId, Pageable pageable)
+    +findContactsByUserId(int userId)
+    +getContactById(int id)
+    +deleteContact(Contact contact)
+    +getContactDTOById(int id)
+    +saveContactDTO(ContactDTO contactDTO)
+  }
+
+  class EventServiceImpl {
+    +saveEvent(Event event)
+    +findEventsByUserId(int userId)
+    +findEventById(Long eventId)
+    +deleteEvent(Long eventId)
+    +getEventDTOById(Long eventId)
+    +saveEventDTO(EventDTO eventDTO)
+  }
+
+  class UserServiceImpl {
+    +getUserByUsername(String username)
+    +saveUser(User user)
+    +registerUser(User user)
+    +findByEmail(String email)
+    +updatePassword(User user)
+    +getUserById(int id)
+    +getAllUsers()
+    +findByEmailAndSecretQuestion(String email, String secretQuestion)
+    +verifySecretAnswer(User user, String secretAnswer)
+    +getUserDTOById(int id)
+    +getUserDTOByUsername(String username)
+    +registerUserDTO(UserDTO userDTO)
+    +updatePassword(UserDTO userDTO)
+    +getAllUserDTOs()
+  }
+}
+
+package com.example.keepintouch.controller {
+  class AdminController {
+    +getDashboard(Integer page, Principal principal, Model model)
+    +getUserProfile(Integer uid, Model model)
+    +deleteUserHandler(Integer uid, HttpSession session, Principal principal)
+    +adminDashboard(Model model, int page)
+  }
+
+  class ContactController {
+    +getUserContacts(Principal principal)
+    +updateContact(int id, Contact contact, Principal principal)
+    +deleteContact(int id, Principal principal)
+  }
+
+  class CustomErrorController {
+    +handleError()
+  }
+
+  class EventController {
+    +addEvent(EventDTO eventDTO, Long contactId, Principal principal)
+    +getUserEvents(Principal principal)
+    +updateEvent(Long id, EventDTO eventDetails, Long contactId, Principal principal)
+    +deleteEvent(Long id, Principal principal)
+  }
+
+  class HomeController {
+    +home(Model model, Principal principal)
+    +about(Model model, Principal principal)
+    +signup(Model model)
+    +login(Model model, HttpSession session)
+    +handleRegistration(UserDTO userDTO, BindingResult result1, boolean agreement, Model model, HttpSession session)
+    +changePassword(String newPassword, HttpSession session)
+  }
+
+  class PasswordResetController {
+    +showForgotPasswordForm()
+    +processForgotPasswordForm(String email, Model model)
+    +verifySecretQuestion(String email, String secretAnswer, Model model)
+    +resetPassword(String email, String password, Model model, HttpSession session)
+  }
+
+  class SearchController {
+    +search(String query, Principal principal)
+    +searchUserHandler(String query, Principal principal)
+  }
+
+  class UserController {
+    +addCommonData(Model model, Principal principal)
+    +dashboard(Model model, Principal principal, HttpSession session)
+    +addContactForm(Model model, Principal principal, HttpSession session)
+    +processContactForm(Contact contact, MultipartFile file, Principal principal, HttpSession session, Model model)
+    +showContactsHandler(Integer page, Model model, Principal principal, HttpSession session)
+    +handleContactDetail(Integer cId, Model model, Principal principal, HttpSession session)
+    +deleteContactHandler(Integer cId, Principal principal, HttpSession session)
+    +updateFormHandler(Integer cId, Model model)
+    +processUpdateContactHandler(Contact contact, MultipartFile file, Model model, Principal principal, HttpSession session)
+    +profileHandler(Model model, Principal principal, HttpSession session)
+    +updateProfileHandler(Model model)
+    +processEditProfileForm(String name, String about, MultipartFile file, Principal principal, HttpSession session)
+    +openSettings(Model model, Principal principal, HttpSession session)
+    +changePassword(String oldPassword, String newPassword, Principal principal, HttpSession session)
+  }
+}
+
+ContactRepository -- Contact : Association
+EventRepository -- Event : Association
+UserRepository -- User : Association
+
+ContactMapper -- Contact : Association
+ContactMapper -- ContactDTO : Association
+EventMapper -- Event : Association
+EventMapper -- EventDTO : Association
+UserMapper -- User : Association
+UserMapper -- UserDTO : Association
+
+ContactServiceImpl --|> ContactService : Implementation
+EventServiceImpl --|> EventService : Implementation
+UserServiceImpl --|> UserService : Implementation
+
+ContactServiceImpl -- ContactRepository : Dependency
+ContactServiceImpl -- ContactMapper : Dependency
+EventServiceImpl -- EventRepository : Dependency
+EventServiceImpl -- EventMapper : Dependency
+UserServiceImpl -- UserRepository : Dependency
+UserServiceImpl -- UserMapper : Dependency
+
+AdminController -- UserRepository : Dependency
+AdminController -- ContactRepository : Dependency
+AdminController -- UserService : Dependency
+AdminController -- UserMapper : Dependency
+
+ContactController -- ContactService : Dependency
+ContactController -- UserService : Dependency
+ContactController -- ContactMapper : Dependency
+
+CustomErrorController --|> ErrorController : Inheritance
+
+EventController -- EventService : Dependency
+EventController -- UserService : Dependency
+EventController -- ContactService : Dependency
+EventController -- EventMapper : Dependency
+
+HomeController -- UserRepository : Dependency
+HomeController -- BCryptPasswordEncoder : Dependency
+HomeController -- UserMapper : Dependency
+
+PasswordResetController -- UserService : Dependency
+PasswordResetController -- UserMapper : Dependency
+PasswordResetController -- BCryptPasswordEncoder : Dependency
+
+SearchController -- UserRepository : Dependency
+SearchController -- ContactRepository : Dependency
+SearchController -- UserMapper : Dependency
+SearchController -- ContactMapper : Dependency
+
+UserController -- UserService : Dependency
+UserController -- ContactService : Dependency
+UserController -- BCryptPasswordEncoder : Dependency
+UserController -- UserMapper : Dependency
+
+@enduml
