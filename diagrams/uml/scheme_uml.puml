@@ -1,0 +1,162 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide empty members
+left to right direction
+
+package com.example.keepintouch.entities {
+  class Contact {
+    int cid
+    String name
+    String nickName
+    String work
+    String email
+    String phone
+    String image
+    String description
+    User user
+    Set<Event> events
+  }
+
+  class Event {
+    Long id
+    String title
+    Date start
+    String note
+    User user
+    Contact contact
+  }
+
+  class User {
+    int id
+    String name
+    String email
+    String password
+    String role
+    boolean enabled
+    String imageUrl
+    String about
+    Integer validated
+    String secretQuestion
+    String secretAnswer
+    List<Contact> contacts
+    String username
+  }
+
+  User "1" --o "*" Contact : Composition
+  User "1" --o "*" Event : Composition
+  Contact "1" --o "*" Event : Composition
+}
+
+package com.example.keepintouch.dto {
+  class ContactDTO {
+    int cid
+    String name
+    String nickName
+    String work
+    String email
+    String phone
+    String image
+    String description
+    int userId
+  }
+
+  class EventDTO {
+    Long id
+    String title
+    Date start
+    String note
+    int userId
+    int contactId
+    String contactName
+  }
+
+  class UserDTO {
+    int id
+    String name
+    String email
+    String password
+    String role
+    boolean enabled
+    String imageUrl
+    String about
+    int validated
+    String secretQuestion
+    String secretAnswer
+  }
+}
+
+package com.example.keepintouch.dao {
+  interface ContactRepository
+  interface EventRepository
+  interface UserRepository
+}
+
+package com.example.keepintouch.helper {
+  class Message {
+    String content
+    String type
+  }
+
+  class SessionHelper
+}
+
+package com.example.keepintouch.mapper {
+  class ContactMapper
+  class EventMapper
+  class UserMapper
+}
+
+package com.example.keepintouch.service {
+  interface ContactService
+  interface EventService
+  interface UserService
+}
+
+package com.example.keepintouch.service.impl {
+  class ContactServiceImpl
+  class EventServiceImpl
+  class UserServiceImpl
+}
+
+package com.example.keepintouch.controller {
+  class AdminController
+  class ContactController
+  class CustomErrorController
+  class EventController
+  class HomeController
+  class PasswordResetController
+  class SearchController
+  class UserController
+}
+
+' Dependencies
+ContactRepository -- ContactServiceImpl : Dependency
+EventRepository -- EventServiceImpl : Dependency
+UserRepository -- UserServiceImpl : Dependency
+
+ContactMapper -- ContactServiceImpl : Dependency
+EventMapper -- EventServiceImpl : Dependency
+UserMapper -- UserServiceImpl : Dependency
+
+AdminController ..> UserService : Uses
+AdminController ..> ContactService : Uses
+
+ContactController ..> ContactService : Uses
+
+EventController ..> EventService : Uses
+EventController ..> ContactService : Uses
+
+HomeController ..> UserService : Uses
+
+PasswordResetController ..> UserService : Uses
+
+SearchController ..> UserService : Uses
+SearchController ..> ContactService : Uses
+
+UserController ..> UserService : Uses
+UserController ..> ContactService : Uses
+
+@enduml
+
+
+

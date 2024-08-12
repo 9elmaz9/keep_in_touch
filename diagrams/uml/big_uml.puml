@@ -15,6 +15,27 @@ package com.example.keepintouch.entities {
     String description
     User user
     Set<Event> events
+    +getCid()
+    +setCid(int cid)
+    +getName()
+    +setName(String name)
+    +getNickName()
+    +setNickName(String nickName)
+    +getWork()
+    +setWork(String work)
+    +getEmail()
+    +setEmail(String email)
+    +getPhone()
+    +setPhone(String phone)
+    +getImage()
+    +setImage(String image)
+    +getDescription()
+    +setDescription(String description)
+    +getUser()
+    +setUser(User user)
+    +getEvents()
+    +setEvents(Set<Event> events)
+    +toString()
   }
 
   class Event {
@@ -24,6 +45,18 @@ package com.example.keepintouch.entities {
     String note
     User user
     Contact contact
+    +getId()
+    +setId(Long id)
+    +getTitle()
+    +setTitle(String title)
+    +getStart()
+    +setStart(Date start)
+    +getNote()
+    +setNote(String note)
+    +getUser()
+    +setUser(User user)
+    +getContact()
+    +setContact(Contact contact)
   }
 
   class User {
@@ -40,6 +73,32 @@ package com.example.keepintouch.entities {
     String secretAnswer
     List<Contact> contacts
     String username
+    +getId()
+    +setId(int id)
+    +getName()
+    +setName(String name)
+    +getEmail()
+    +setEmail(String email)
+    +getPassword()
+    +setPassword(String password)
+    +getRole()
+    +setRole(String role)
+    +isEnabled()
+    +setEnabled(boolean enabled)
+    +getImageUrl()
+    +setImageUrl(String imageUrl)
+    +getAbout()
+    +setAbout(String about)
+    +getValidated()
+    +setValidated(Integer validated)
+    +getSecretQuestion()
+    +setSecretQuestion(String secretQuestion)
+    +getSecretAnswer()
+    +setSecretAnswer(String secretAnswer)
+    +getContacts()
+    +setContacts(List<Contact> contacts)
+    +getUsername()
+    +setUsername(String username)
   }
 
   User "1" --o "*" Contact : Composition
@@ -111,6 +170,10 @@ package com.example.keepintouch.helper {
   class Message {
     String content
     String type
+    +getContent()
+    +setContent(String content)
+    +getType()
+    +setType(String type)
   }
 
   class SessionHelper {
@@ -276,31 +339,60 @@ package com.example.keepintouch.controller {
   }
 }
 
-' Group dependencies to reduce clutter
-ContactServiceImpl -- ContactRepository : Uses
-ContactServiceImpl -- ContactMapper : Uses
-EventServiceImpl -- EventRepository : Uses
-EventServiceImpl -- EventMapper : Uses
-UserServiceImpl -- UserRepository : Uses
-UserServiceImpl -- UserMapper : Uses
+ContactRepository -- Contact : Association
+EventRepository -- Event : Association
+UserRepository -- User : Association
 
-AdminController -- UserService : Uses
-AdminController -- ContactService : Uses
+ContactMapper -- Contact : Association
+ContactMapper -- ContactDTO : Association
+EventMapper -- Event : Association
+EventMapper -- EventDTO : Association
+UserMapper -- User : Association
+UserMapper -- UserDTO : Association
 
-ContactController -- ContactService : Uses
+ContactServiceImpl --|> ContactService : Implementation
+EventServiceImpl --|> EventService : Implementation
+UserServiceImpl --|> UserService : Implementation
 
-EventController -- EventService : Uses
-EventController -- ContactService : Uses
+ContactServiceImpl -- ContactRepository : Dependency
+ContactServiceImpl -- ContactMapper : Dependency
+EventServiceImpl -- EventRepository : Dependency
+EventServiceImpl -- EventMapper : Dependency
+UserServiceImpl -- UserRepository : Dependency
+UserServiceImpl -- UserMapper : Dependency
 
-HomeController -- UserService : Uses
+AdminController -- UserRepository : Dependency
+AdminController -- ContactRepository : Dependency
+AdminController -- UserService : Dependency
+AdminController -- UserMapper : Dependency
 
-PasswordResetController -- UserService : Uses
+ContactController -- ContactService : Dependency
+ContactController -- UserService : Dependency
+ContactController -- ContactMapper : Dependency
 
-SearchController -- UserService : Uses
-SearchController -- ContactService : Uses
+CustomErrorController --|> ErrorController : Inheritance
 
-UserController -- UserService : Uses
-UserController -- ContactService : Uses
+EventController -- EventService : Dependency
+EventController -- UserService : Dependency
+EventController -- ContactService : Dependency
+EventController -- EventMapper : Dependency
+
+HomeController -- UserRepository : Dependency
+HomeController -- BCryptPasswordEncoder : Dependency
+HomeController -- UserMapper : Dependency
+
+PasswordResetController -- UserService : Dependency
+PasswordResetController -- UserMapper : Dependency
+PasswordResetController -- BCryptPasswordEncoder : Dependency
+
+SearchController -- UserRepository : Dependency
+SearchController -- ContactRepository : Dependency
+SearchController -- UserMapper : Dependency
+SearchController -- ContactMapper : Dependency
+
+UserController -- UserService : Dependency
+UserController -- ContactService : Dependency
+UserController -- BCryptPasswordEncoder : Dependency
+UserController -- UserMapper : Dependency
 
 @enduml
-

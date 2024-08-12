@@ -1,0 +1,49 @@
+@startuml
+left to right direction
+
+actor User
+actor Admin
+
+package "User Actions" {
+  usecase "Sign Up" as UC1
+  usecase "Login" as UC2
+  usecase "View Profile" as UC3
+  usecase "Update Profile" as UC4
+  usecase "Change Password" as UC5
+  usecase "Add Contact" as UC6
+  usecase "Update Contact" as UC7
+  usecase "Delete Contact" as UC8
+  usecase "View Contacts" as UC9
+  usecase "View Contact Details" as UC10
+  usecase "Add Event" as UC11
+  usecase "Update Event" as UC12
+  usecase "Delete Event" as UC13
+  usecase "View Events" as UC14
+}
+
+package "Admin Actions" {
+  usecase "Admin Dashboard" as UC15
+  usecase "View User Profile" as UC16
+  usecase "Delete User" as UC17
+}
+
+User --> UC1
+User --> UC2
+User --> UC3
+User --> UC4
+User --> UC5
+User --> UC6
+User --> UC7
+User --> UC8
+User --> UC9
+User --> UC10
+User --> UC11
+User --> UC12
+User --> UC13
+User --> UC14
+
+Admin --> UC15
+Admin --> UC16
+Admin --> UC17
+
+@enduml
