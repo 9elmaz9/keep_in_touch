@@ -13,7 +13,7 @@ public class UserMapper {
 
     // Converts a User entity to a UserDTO object
     //Преобразует сущность User в объект UserDTO,не раскрывая внутреннюю структуру entity
-    public UserDTO toDto(User user) {
+    public UserDTO toDTO(User user) {
         UserDTO dto = new UserDTO();
         // Call method to map common fields/Вызов метода для сопоставления общих полей
         mapCommonFields(user, dto);
