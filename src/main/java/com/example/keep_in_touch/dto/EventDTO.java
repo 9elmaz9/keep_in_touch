@@ -1,4 +1,5 @@
 package com.example.keep_in_touch.dto;
+
 import java.util.Date;
 //dataa transfer object for event
 
@@ -8,12 +9,12 @@ public class EventDTO {
     private String title;
     private Date start;
     private String note;
-    private int userid;
+    private int userId;
     private int contactId;
     private String contactName;
 
-    // Getter and setter methods for each attribute of the EventDTO class
 
+    // Getter and setter methods for each attribute of the EventDTO class
 
     public Long getId() {
         return id;
@@ -47,12 +48,12 @@ public class EventDTO {
         this.note = note;
     }
 
-    public int getUserid() {
-        return userid;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserid(int userid) {
-        this.userid = userid;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public int getContactId() {

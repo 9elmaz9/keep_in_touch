@@ -1,10 +1,11 @@
 package com.example.keep_in_touch.dto;
-/**
- * data transfer object for user
- */
+
+
+//data transfer object -  used to encapsulate data for transfer between different layers
+
 public class UserDTO {
 
-    private  int id;
+    private int id;
     private String name;
     private String email;
     private String password;

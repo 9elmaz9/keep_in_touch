@@ -3,9 +3,8 @@ package com.example.keep_in_touch.dto;
 //data transfer object for Contact
 
 public class ContactDTO {
-
-private int cid;
-private String name;
+    private int cid;
+    private String name;
     private String nickName;
     private String work;
     private String email;
@@ -14,8 +13,8 @@ private String name;
     private String description;
     private int userId;
 
-    // Getter and setter methods for each attribute of the EventDTO class
 
+    // Getter and setter methods for each attribute of the EventDTO class
 
     public int getCid() {
         return cid;

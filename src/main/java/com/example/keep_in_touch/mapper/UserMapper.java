@@ -24,12 +24,46 @@ public class UserMapper {
 
     //  Converts a UserDTO object to a User entity/Преобразует объект UserDTO в сущность User
     public User toEntity(UserDTO dto){
-
+        User user = new User();
+        mapCommonFields(dto, user);
+        user.setValidated(dto.getValidated());
+        return user;
     }
 
-    private void mapCommonFields(User user, UserDTO dto){}
+    //Маппинг общих полей из сущности User в объект UserDTO
+    //Mapping common fields from User entity to UserDTO object
+    private void mapCommonFields(User user, UserDTO dto){
+        dto.setId(user.getId());
+        dto.setName(user.getName());
+        dto.setEmail(user.getEmail());
+        dto.setPassword(user.getPassword());
+        dto.setRole(user.getRole());
+        dto.setEnabled(user.isEnabled());
+        dto.setImageUrl(user.getImageUrl());
+        dto.setAbout(user.getAbout());
+        dto.setSecretQuestion(user.getSecretQuestion());
+        dto.setSecretQuestion(user.getSecretQuestion());
+    }
 
-    private void mapCommonField(UserDTO dto, User user){}
+
+    //Маппинг общих полей из объекта UserDTO в сущность User
+    //Mapping common fields from UserDTO object  to User entity
+
+
+    private void mapCommonField(UserDTO dto, User user){
+        user.setId(dto.getId());
+        user.setName(dto.getName());
+        user.setEmail(dto.getEmail());
+        user.setPassword(dto.getPassword());
+        user.setRole(dto.getRole());
+        user.setEnabled(dto.isEnabled());
+        user.setImageUrl(dto.getImageUrl());
+        user.setAbout(dto.getAbout());
+        user.setSecretQuestion(dto.getSecretQuestion());
+        user.setSecretQuestion(dto.getSecretQuestion());
+
+
+    }
 
 
 }

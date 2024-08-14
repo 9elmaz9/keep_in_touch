@@ -1,26 +1,26 @@
 package com.example.keep_in_touch.entities;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
 import java.util.Set;
 import java.util.HashSet;
+
+
 @Entity
-@Table(name="contacts")
+@Table(name = "contacts")
 public class Contact {
-    /**
-     * Entity class for Contact.
-     * This class represents a contact in the personal contact manager application.
-     * It is mapped to the "contacts" table in the database.
-     */
-@Id  //PK
-@GeneratedValue(strategy = GenerationType.AUTO) // value PK
-@Column(name="contact_id")
-    private  int cid;
+
+    @Id  //PK
+    @GeneratedValue(strategy = GenerationType.AUTO) // value PK
+    @Column(name = "contact_id")
+    private int cid;
     private String name;
     @Column(name = "nick_name")
     private String nickName;
     private String work;
     private String email;
-    private boolean phone;
+    private String phone;
     private String image;
     @Column(length = 50000)
     private String description;
@@ -34,12 +34,15 @@ public class Contact {
     @JsonIgnore
     private Set<Event> events = new HashSet<>();
 
+
+    //constructor
     public Contact() {
         super();
     }
 
 
     // Getter and setter methods for each attribute of the Contact class.
+
 
     public int getCid() {
         return cid;
@@ -81,11 +84,11 @@ public class Contact {
         this.email = email;
     }
 
-    public boolean isPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(boolean phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

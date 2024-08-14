@@ -5,34 +5,32 @@ import jakarta.persistence.*;
 
 import java.util.Date;
 
-/**
- * Entity class for Event.
- * This class represents an event in the personal contact manager application.
- * It is mapped to the "events" table in the database.
- */
+
 @Entity
-@Table(name="events")
+@Table(name = "events")
 public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private  Long id;
+    private Long id;
     private String title;
     private Date start;
     private String note;
     private String category;
-@ManyToOne
+    @ManyToOne
 //Each event is associated with one user who owns it.The user_id column in the "events" table is used as the foreign key. FK
-@JoinColumn(name = "user_id")
-@JsonIgnore
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
 
-
-@ManyToOne // Each event is associated with one contact.The contact_id column in the "events" table is used as the foreign key.
-@JoinColumn(name = "contact_id")
+    @ManyToOne
+    // Each event is associated with one contact.The contact_id column in the "events" table is used as the foreign key.
+    @JoinColumn(name = "contact_id")
     private Contact contact;
 
+    //constructor
+    public Event() {}
 
 
     // Getter and setter methods for each attribute of the Event class.
