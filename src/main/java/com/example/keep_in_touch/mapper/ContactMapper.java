@@ -7,8 +7,9 @@ import org.springframework.stereotype.Component;
 
 
 /* Mapper class for converting between Contact entities and ContactDTO objects.
- *Этот класс служит для преобразования данных между сущностями Contact и объектами ContactDTO.
- *Использование маппера помогает отделить слои приложения и упрощает тестирование и поддержку кода.*/
+ Этот класс служит для преобразования данных между сущностями Contact и объектами ContactDTO.
+ Использование маппера помогает отделить слои приложения и упрощает тестирование и поддержку кода
+ */
 @Component
 public class ContactMapper {
 
@@ -16,8 +17,8 @@ public class ContactMapper {
     private UserMapper userMapper; //Внедрение маппера для User, если понадобится обработка связанного пользователя
 
 
-    public ContactDTO toDTO(Contact contact){
-        ContactDTO dto=new ContactDTO();
+    public ContactDTO toDTO(Contact contact) {
+        ContactDTO dto = new ContactDTO();
         dto.setCid(contact.getCid());
         dto.setName(contact.getName());
         dto.setNickName(contact.getNickName());
@@ -32,7 +33,7 @@ public class ContactMapper {
 
     }
 
-    public Contact toEntity(ContactDTO dto){
+    public Contact toEntity(ContactDTO dto) {
         Contact contact = new Contact();
         contact.setCid(dto.getCid());
         contact.setName(dto.getName());

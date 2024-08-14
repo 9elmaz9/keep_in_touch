@@ -11,8 +11,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 
-// * Repository interface for managing Contact entities.
-// * CRUD (создание, чтение, обновление, удаление) с сущностями Contact.
+// * Repository interface for managing Contact entities
+// * CRUD (создание, чтение, обновление, удаление) с сущностями Contact
 
 public interface ContactRepository  extends JpaRepository<Contact, Integer> {
 

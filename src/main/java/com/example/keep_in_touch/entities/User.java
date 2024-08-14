@@ -11,7 +11,7 @@ import jakarta.validation.constraints.Size;
 import org.springframework.transaction.reactive.GenericReactiveTransaction;
 
 
-
+//Entity class for User
 
 @Entity
 @Table(name = "users")
