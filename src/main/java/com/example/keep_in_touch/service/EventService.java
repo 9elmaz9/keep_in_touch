@@ -9,7 +9,7 @@ public interface EventService {
     void saveEvent(Event event);
     List<Event> findEventsByUserId(int userId);
     Event findEventById(Long eventId);
-    void deleteEvent(Long  evenId);
+    void deleteEvent(Long  eventId);
     EventDTO getEventDTOById(Long eventId);
     Event saveEventDTO(EventDTO eventDTO);
 }
