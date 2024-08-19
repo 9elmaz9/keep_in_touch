@@ -2,6 +2,9 @@ package com.example.keep_in_touch.controller;
 
 
 import com.example.keep_in_touch.dto.EventDTO;
+import com.example.keep_in_touch.entities.Contact;
+import com.example.keep_in_touch.entities.Event;
+import com.example.keep_in_touch.entities.User;
 import com.example.keep_in_touch.mapper.EventMapper;
 import com.example.keep_in_touch.service.ContactService;
 import com.example.keep_in_touch.service.EventService;
@@ -14,10 +17,9 @@ import java.security.Principal;
 import java.util.List;
 
 //управляет операциями, связанными с событиями (Event).
-// Этот контроллер предоставляет API для добавления, обновления, удаления и просмотра событий,
-// связанных с контактами.
+// Этот контроллер предоставляет API для добавления, обновления, удаления и просмотра событий, связанных с контактами.
 @RestController
-@RequestMapping("/api/events")
+@RequestMapping("/api/events") // Определяет базовый URL для всех маршрутов
 public class EventController {
 
     @Autowired
@@ -30,11 +32,25 @@ public class EventController {
     private EventMapper eventMapper;
 
 
+
+    //Метод addEvent для добавления события
     @PostMapping("/add")
-    public String addEvent(@RequestBody EventDTO eventDTO,
-                           @RequestParam Long contactId,
-                           Principal principal){
-        return  null;
+    public String addEvent(@RequestBody EventDTO eventDTO, // dto содержащий данные нового события
+                           @RequestParam Long contactId,  //Идентификатор контакта, связанного с этим событием
+                           Principal principal){  ////Проверяется, аутентифицирован ли пользователь
+
+        if(principal == null){
+            return "Unauthorized";
+        }
+        User user = userService.getUserByUsername(principal.getName()); //Получаем текущего пользователя по имени из объекта Principal
+        Event event = eventMapper.toEntity(eventDTO);
+        event.setUser(user);//Преобразуем EventDTO в сущность Event и устанавливаем текущего пользователя и контакт, с которым связано событие
+
+        Contact contact = contactService.getContactById(contactId.intValue());
+        event.setContact(contact);
+
+        eventService.saveEvent(event); //сохраняем событие в базе данных
+        return  "Event added successfully "; // //Возвращаемое значение: Метод возвращает строку с сообщением о результате операции.
     }
 
 
