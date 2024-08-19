@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 //управляет операциями, связанными с событиями (Event).
 // Этот контроллер предоставляет API для добавления, обновления, удаления и просмотра событий, связанных с контактами.
@@ -57,8 +58,21 @@ public class EventController {
 
 
     @GetMapping("/user")
+    //Метод getUserEvents для получения событий пользователя
+    //Проверка, аутентифицирован ли пользователь.
+    //Получение событий, связанных с пользователем, преобразование их в DTO и возврат списка событий
     public List<EventDTO> getUserEvents(Principal principal){
-        return null;
+        if ( principal == null){
+            return  null;
+        }
+        User user = userService.getUserByUsername(principal.getName());
+        return eventService.findEventsByUserId(user.getId()).stream()
+                .map(event -> {
+                    EventDTO dto = eventMapper.toDTO(event);
+                    dto.setContactName(event.getContact().getName());
+                    return dto;
+                })
+                .collect(Collectors.toList()); //возвращает значение- список обьектов EventDTO
     }
 
 
