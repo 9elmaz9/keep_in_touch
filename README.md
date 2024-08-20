@@ -3,9 +3,9 @@
 ## Why Choose "Keep in Touch"?
 The app offers several benefits that make managing contacts easier and more efficient:
 
-#### Centralized Contact Management: Manage all your personal and professional contacts in one place.
-
 #### Intuitive Interface: User-friendly interface for easy contact and event management.
+
+#### Centralized Contact Management: Manage all your personal and professional contacts in one place.
 
 #### Integrated Reminders: Never miss an appointment with built-in reminders.
 
