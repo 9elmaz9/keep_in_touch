@@ -1,6 +1,7 @@
 #### Keep in Touch" App Project - Concept Version
+![Dino](https://gifdb.com/images/high/working-emoji-typing-gf7f51a0cl5ynyx9.webp)
 
-https://gifdb.com/images/high/working-emoji-typing-gf7f51a0cl5ynyx9.webp
+
 
 ## Why Choose "Keep in Touch"?
 The app offers several benefits that make managing contacts easier and more efficient:
