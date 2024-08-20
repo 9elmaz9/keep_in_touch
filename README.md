@@ -1,4 +1,4 @@
-# "keep_in_touch" event&contact applicatie project
+# "keep_in_touch" applicatie project
 
 ## сonceptversie
 
