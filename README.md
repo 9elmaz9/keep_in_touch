@@ -18,7 +18,7 @@ The app offers several benefits that make managing contacts easier and more effi
 #### Flexible and Scalable: Suitable for individual users and small to medium-sized businesses.
 
 ## Conclusion
-"Keep in Touch" combines ease of use, powerful functionality, and strong security, making it the ideal app for effective contact management.
+"Keep in Touch" combines ease of use, powerful functionality, and strong security, making it the ideal app for effective event and contact management.
 
 
 
