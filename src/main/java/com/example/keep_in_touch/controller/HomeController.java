@@ -22,8 +22,7 @@ public class HomeController {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+
 
     @Autowired
     private UserMapper userMapper;

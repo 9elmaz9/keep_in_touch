@@ -32,8 +32,7 @@ public class UserController {
     private UserService userService;
     @Autowired
     private ContactService contactService;
- //  @Autowired
- //  private BCryptPasswordEncoder passwordEncoder;
+
     @Autowired
     private UserMapper userMapper;
 

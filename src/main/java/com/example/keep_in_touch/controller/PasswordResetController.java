@@ -18,8 +18,7 @@ public class PasswordResetController {
     @Autowired
     private UserMapper userMapper;
 
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+
 
 
     //1
