@@ -27,9 +27,9 @@ public class UserMapper {
     //Converts a UserDTO object to a User entity/Преобразует объект UserDTO в сущность User
     public User toEntity(UserDTO dto) {
         User user = new User();
-        mapCommonFields(user, dto); // проверить тут
+        mapCommonField(dto, user); // уже все ок !
         user.setValidated(dto.getValidated());
-        // Логирование (если нужно)
+        // Логирование
         // logger.info("Converted UserDTO to User with validated status: " + user.getValidated());
         return user;
     }
@@ -52,7 +52,6 @@ public class UserMapper {
 
     //Маппинг общих полей из объекта UserDTO в сущность User
     //Mapping common fields from UserDTO object  to User entity
-
     private void mapCommonField(UserDTO dto, User user) {
         user.setId(dto.getId());
         user.setName(dto.getName());

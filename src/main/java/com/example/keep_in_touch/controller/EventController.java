@@ -64,6 +64,7 @@ public class EventController {
     //Проверка, аутентифицирован ли пользователь.
     //Получение событий, связанных с пользователем, преобразование их в DTO и возврат списка событий
     public List<EventDTO> getUserEvents(Principal principal) {
+
         if (principal == null) {
             return null;
         }
@@ -81,7 +82,8 @@ public class EventController {
 
 
     @GetMapping("/show-events")  //GET-запросы по пути /api/events/show-events
-    public String showEvents(Model model, Principal principal) {
+    public String showEvents(Model model,
+                             Principal principal) {
         //Displays a list of events for the authenticated user
         //Если пользователь не аутентифицирован, происходит редирект на страницу входа.
         //События пользователя извлекаются и добавляются в модель для отображения на странице show_events
@@ -118,6 +120,7 @@ public class EventController {
                               @RequestBody EventDTO eventDetails,
                               @RequestParam Long contactId,
                               Principal principal) {
+
         if ( principal ==null){
             return "Unauthorized";
         }
