@@ -44,7 +44,7 @@ public class UserControllerTest {
 
     //создаёт экземпляр UserController и автоматически внедряет в него все мок-объекты.
     @InjectMocks
-    private UserControllerTest userController;
+    private UserController userController;
 
     // MockMvc для имитации HTTP-запросов и проверки ответов
     private MockMvc mockMvc;

@@ -84,9 +84,9 @@ public class UserController {
 
         String username = principal.getName();
         User user = userService.getUserByUsername(username);
-        model.addAttribute("title", " Add contact");
+        model.addAttribute("title", "Add Contact");
         model.addAttribute("contact", new Contact());
-        return "/prof/add_contact_form";
+        return "prof/add_contact_form";
     }
 
 

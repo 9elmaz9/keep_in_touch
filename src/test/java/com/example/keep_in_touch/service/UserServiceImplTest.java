@@ -6,15 +6,16 @@ import com.example.keep_in_touch.repository.UserRepository;
 import com.example.keep_in_touch.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.*;
+
+
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
@@ -31,8 +32,8 @@ public class UserServiceImplTest {
     @Mock
     private UserMapper userMapper;
 
-    @Mock
-    UserServiceImpl userService;
+    @InjectMocks
+    private UserServiceImpl userService;
 
 
     //инициализирует мок-объекты
@@ -61,11 +62,11 @@ public class UserServiceImplTest {
     @Test
     public void testRegisterUser(){
         User user= new User();
-        user.setPassword("testPassword");
-        user.setSecretAnswer("testAnswer");
+        user.setPassword("plainPassword");
+        user.setSecretAnswer("plainAnswer");
 
-        when(passwordEncoder.encode("testPassword")).thenReturn("encodedPassword");
-        when(passwordEncoder.encode("testAnswer")).thenReturn("encodedPassword");
+        when(passwordEncoder.encode("plainPassword")).thenReturn("encodedPassword");
+        when(passwordEncoder.encode("plainAnswer")).thenReturn("encodedPassword");
         when(userRepository.save(any(User.class))).thenReturn(user);
 
 
@@ -80,13 +81,13 @@ public class UserServiceImplTest {
     @Test
     public  void testFindByEmail(){
         User user= new User();
-        user.setEmail("elmazworkakk@gmail.com");
+        user.setEmail("admin@example.com");
 
-        when(userRepository.findByEmail("elmazworkakk@gmail.com")).thenReturn(user);
+        when(userRepository.findByEmail("admin@example.com")).thenReturn(user);
 
         //электронная почта совпадает с ожидаемой
-        User result = userService.findByEmail("elamzworlakk@gmail.com");
-        assertEquals("elmazworkakk@gmail.com", result.getEmail());
+        User result = userService.findByEmail("admin@example.com");
+        assertEquals("admin@example.com", result.getEmail());
 
     }
 
