@@ -17,6 +17,8 @@ import org.springframework.security.web.SecurityFilterChain;
 //@Configuration: Объявляет класс конфигурационным.
 //@EnableWebSecurity: Включает функциональность Spring Security.
 //@Bean: Определяет метод, возвращающий объект, который Spring будет управлять как бином.
+
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
