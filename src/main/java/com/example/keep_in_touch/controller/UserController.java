@@ -432,7 +432,7 @@ public class UserController {
     /**
      * Обрабатывает ввод email для восстановления пароля, отображает секретный вопрос
      */
-    @GetMapping("/forgot-password")
+    @PostMapping("/forgot-password")
     public String processForgotPasswordForm(@RequestParam("email") String email,
                                             Model model) {
         //find the user in the db using their ameil

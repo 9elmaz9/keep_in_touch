@@ -17,6 +17,7 @@ public class ContactMapper {
     private UserMapper userMapper; //Внедрение маппера для User, если понадобится обработка связанного пользователя
 
 
+    //Преобразует сущность Contact в объект ContactDTO
     public ContactDTO toDTO(Contact contact) {
         ContactDTO dto = new ContactDTO();
         dto.setCid(contact.getCid());
@@ -33,6 +34,7 @@ public class ContactMapper {
 
     }
 
+    //Преобразует объект ContactDTO в сущность Contact
     public Contact toEntity(ContactDTO dto) {
         Contact contact = new Contact();
         contact.setCid(dto.getCid());

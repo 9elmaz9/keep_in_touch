@@ -2,6 +2,9 @@ package com.example.keep_in_touch.dto;
 
 
 //data transfer object -  used to encapsulate data for transfer between different layers
+//используется для передачи данных между различными частями системы (например, между контроллером и сервисом)
+// и может включать только те данные, которые необходимы для определенного случая использования.
+//Это помогает улучшить безопасность и производительность системы.
 
 public class UserDTO {
 

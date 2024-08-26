@@ -53,7 +53,7 @@ public class HomeController {
     @GetMapping("/about")
     public String about(Model model,
                         Principal principal){
-        //if the user isnt logged in ->
+        //if the user isn't logged in ->
         if(principal == null) {
             model.addAttribute("user", null);
             return "about";
@@ -142,7 +142,6 @@ public class HomeController {
             model.addAttribute("message" , new Message("An error occured" +e.getMessage(),"alert-danger"));
         }
 
-
         return "singup"; // page
     }
 
@@ -164,8 +163,8 @@ public class HomeController {
         // Save the updated user in the database.
         this.userRepository.save(user);
 
-        // Add a success message to the session.
-        session.setAttribute("message" , new Message("Password changed successfylly" , "alert-success"));
+        // add a success message to the session.
+        session.setAttribute("message" , new Message("Password changed successfully" , "alert-success"));
         //redirect to the login page
         return "login";
     }

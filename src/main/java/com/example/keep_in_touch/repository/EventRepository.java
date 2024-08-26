@@ -17,5 +17,5 @@ public interface EventRepository extends JpaRepository<Event , Long> { // long p
 
    // Page<Event> findByUserId(Long userId, Pageable pageable);
 
-    List<Event>findByDate(LocalDate date);
+    // List<Event>findByDate(LocalDate date);
 }

@@ -19,12 +19,14 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private UserMapper userMapper;
-
     // Внедрение кодировщика паролей для шифрования паролей и секретных ответов
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserMapper userMapper;
+
+
 
     //возвращает пользователя по его имени
     @Override

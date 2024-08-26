@@ -1,7 +1,7 @@
 package com.example.keep_in_touch.dto;
 
 //data transfer object for Contact
-
+//используется для преобразования между сущностями Contact и объектами ContactDTO
 public class ContactDTO {
     private int cid;
     private String name;
