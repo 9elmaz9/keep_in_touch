@@ -15,16 +15,21 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
@@ -109,6 +114,23 @@ public class UserControllerTest {
                 .andExpect(model().attribute("title", "Add Contact"));
     }
 
+    // тест добавления контакта
+    @Test
+    void testProcessContactForm() throws Exception {
+        // Setup a mock file
+        MockMultipartFile mockFile = new MockMultipartFile("profileImage", "test.jpg", "image/jpeg", "test data".getBytes());
+
+        mockMvc.perform(MockMvcRequestBuilders.multipart("/user/process-contact")
+                        .file(mockFile)
+                        .principal(() -> "elmazworkakk@gmail.com")
+                        .param("name", "Test Contact"))
+                .andExpect(status().isOk())  // Проверяем, что запрос завершился успешно
+                .andExpect(view().name("prof/add_contact_form"))  // Проверяем, что возвращается правильное представление
+                .andExpect(model().attributeExists("contact"))  // Проверяем, что модель содержит атрибут "contact"
+                .andExpect(request().sessionAttribute("message", org.hamcrest.Matchers.notNullValue()));  // Проверяем, что в сессии есть атрибут "message"
+    }
+
+
     // тест формы контактного листа который отображает список контактов пользователя с поддержкой пагинации
     @Test
     void testShowContactsHandler() throws Exception {
@@ -154,6 +176,7 @@ public class UserControllerTest {
                 .andExpect(model().attributeExists("user"))
                 .andExpect(model().attribute("title", "User Profile"));
     }
+
 }
 
 //Возвращает статус 200 OK.
