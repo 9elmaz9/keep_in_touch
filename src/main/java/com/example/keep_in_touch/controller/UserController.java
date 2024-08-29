@@ -18,7 +18,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.IOException;
@@ -119,7 +118,7 @@ public class UserController {
             } else {
                 // Устанавливаем имя загруженного изображения и сохраняем его на сервере
                 contact.setImage(file.getOriginalFilename());
-                File saveFile = new ClassPathResource("static/img").getFile();
+                File saveFile = new ClassPathResource("static.img/img").getFile();
                 Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + file.getOriginalFilename());
                 Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             }
@@ -198,8 +197,8 @@ public class UserController {
             model.addAttribute("contact", contact);
         }
 
-        //the contact details view
-        return "prof/contact_details";
+        //the contact details view  // LOOK HEREEEEE
+        return "add_contact_details";
     }
 
 
@@ -273,7 +272,7 @@ public class UserController {
                 //if new uploaded
                 contact.setImage(file.getOriginalFilename());
                 //save
-                File saveFile = new ClassPathResource("static/img").getFile();
+                File saveFile = new ClassPathResource("static.img/img").getFile();
                 Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + file.getOriginalFilename());
                 Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             }
@@ -348,7 +347,7 @@ public class UserController {
                 // then updtae user prof
                 user.setImageUrl(file.getOriginalFilename());
                 //save
-                File saveFile = new ClassPathResource("static/img").getFile();
+                File saveFile = new ClassPathResource("static.img/img").getFile();
                 Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + file.getOriginalFilename());
                 Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             }
@@ -414,7 +413,7 @@ public class UserController {
             return "redirect:/user/setting";
         }
         //if everything is OKAY  - then redirect to dashboard
-        return "redirect:/user/dashboars";
+        return "redirect:/user/dashboards";
     }
 
 

@@ -63,7 +63,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         //off protect = csrf - beter only for test
         //Отключает защиту от CSRF (Cross-Site Request Forgery). Это не рекомендуется для продакшена, но может быть необходимо для тестирования или API.
-        http.csrf(csrf -> csrf.disable())
+        http.csrf(csrf -> csrf.disable())  //   analog   http.csrf(AbstractHttpConfigurer::disable)
                 // настройка авторизации для различныз URL
                 .authorizeHttpRequests(auth -> auth
                        //доступ только для админ

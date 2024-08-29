@@ -156,7 +156,7 @@ public class AdminController {
         model.addAttribute("totalPages", userPage.getTotalPages());
 
 
-        return "admin_dashboard";
+        return "e";
     }
 
 }
