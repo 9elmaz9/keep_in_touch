@@ -44,15 +44,8 @@ public class UserServiceImpl implements UserService {
     //регистрация нового пользователя и  шифрование его пароля и секретный ответ
     @Override
     public User registerUser(User user) {
-        if (user == null) {
-            throw new IllegalArgumentException("User must not be null");
-        }
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        String encodedSecretAnswer = passwordEncoder.encode(user.getSecretAnswer());
-
-        user.setPassword(encodedPassword);
-        user.setSecretAnswer(encodedSecretAnswer);
-
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setSecretAnswer(passwordEncoder.encode(user.getSecretAnswer())); // Encrypting the secretAnswer
         return userRepository.save(user);
 
     }
@@ -102,18 +95,17 @@ public class UserServiceImpl implements UserService {
     //возвращает UserDTO по его ид
     @Override
     public UserDTO getUserDTOById(int id) {
-        final UserDTO[] userDTO = {null};
-        userRepository.findById(id).ifPresent(user -> userDTO[0] = userMapper.toDTO(user));
-        return userDTO[0];
+        return userRepository.findById(id)
+                .map(userMapper::toDTO)
+                .orElse(null);
     }
 
 
     //возвращает  UserDTO по его имени пользователя
     @Override
     public UserDTO getUserDTOByUsername(String username) {  //Optional для безопасного преобразования User в UserDTO, если User не равен null
-        return Optional.ofNullable(getUserByUsername(username))
-                .map(userMapper::toDTO)
-                .orElse(null);
+        User user = getUserByUsername(username);
+        return user != null ? userMapper.toDTO(user) : null;
         // Логирование, если пользователь не найден
         // logger.warn("User with username " + username + " not found");
     }
@@ -122,18 +114,14 @@ public class UserServiceImpl implements UserService {
     //регистрируем нового пользователя на основе  UserDTO и   шифруте пароль и секретный ответ
     @Override
     public UserDTO registerUserDTO(UserDTO userDTO) {
-        if (userDTO == null) {
-            throw new IllegalArgumentException("UserDTO must not be null");
-        }
         User user = userMapper.toEntity(userDTO);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setSecretAnswer(passwordEncoder.encode(user.getSecretAnswer()));
-        User savedUser = userRepository.save(user);
 
         // Логирование (если нужно)
         // logger.info("User registered with ID: " + savedUser.getId());
 
-        return userMapper.toDTO(savedUser);
+        return userMapper.toDTO(userRepository.save(user));
     }
 
 
@@ -141,13 +129,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updatePassword(UserDTO userDTO) {
         User user = userMapper.toEntity(userDTO);
-        if (user.getPassword() != null) {
-            String encodedPassword = passwordEncoder.encode(user.getPassword());
-            user.setPassword(encodedPassword);
-            userRepository.save(user);
-        } else {
-            throw new IllegalArgumentException("Password must not be null");
-        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
     }
 
     //возвращает список всез userDto

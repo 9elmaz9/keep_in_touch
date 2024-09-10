@@ -8,9 +8,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 
 //Helper class for managing session attributes
-// SessionHelper создан для управления сессиями в вашем веб-приложении
 
-@Component  //Указывает, что этот класс является Spring Bean
+@Component
 public class SessionHelper {
 
     //Удаляет атрибут "message" из текущей HTTP-сессии
@@ -20,7 +19,6 @@ public class SessionHelper {
             HttpSession session = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getSession();
             session.removeAttribute("message");
         } catch (Exception e) {
-            System.out.println(e.getMessage()); // если ошибка то = смс
         }
     }
 

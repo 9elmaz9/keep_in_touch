@@ -33,51 +33,50 @@ public class PasswordResetController {
     //shows the forgot password form
     @GetMapping("/forgot-password")
     public String showForgotPasswordForm() {
-        return "forgot_password_form"; // return reset password email form - start process
+        return "forgot_password_form";
     }
 
 
     //handles the forgotten password form
-    @PostMapping("/forgot -password")
+    @PostMapping("/forgot-password")
     public String processForgotPasswordForm(@RequestParam("email") String email,
                                             Model model) {
         //get user by email
         User user = userService.findByEmail(email);
         if (user == null) {
-            //if the email is not found ->
             model.addAttribute("error", "No account associated with that email was found.");
-            return "forgot_password_form"; // start form
+            return "forgot_password_form";
         }
-        // Если пользователь найден, преобразует его в DTO для доступа к секретному вопросу  и  секр вопрос отобр на след странице
+        //передаем данные секретнвый вопрос  .мапер преобразует юзер в дто
         UserDTO userDTO = userMapper.toDTO(user);
         model.addAttribute("email", email); // for newt step
         model.addAttribute("secretQuestion", userDTO.getSecretQuestion());
 
-        return "verify_secret_question"; //  return page  check answer
+        return "verify_secret_question";
     }
 
-    //3
-    //Validatrs the answer to the security question
-    //check if the   answer  is correct
+
+    //Validatrs the answer to the security question ->check if the   answer  is correct
     @PostMapping("/verify-secret-question")
     public String verifySecretQuestion(@RequestParam("email") String email,
                                        @RequestParam("secretAnswer") String secretAnswer,
                                        Model model) {
         User user = userService.findByEmail(email);
         // if nor- error
-        if (user == null || passwordEncoder.matches(secretAnswer, user.getSecretAnswer())) {
+        if (user == null || !passwordEncoder.matches(secretAnswer, user.getSecretAnswer())) {
             //if not ->
             model.addAttribute("error", "Incorrect answer to the security question");
             model.addAttribute("email", email);
             model.addAttribute("secretQuestion", user.getSecretQuestion());
+            return "verify_secret_question";
 
         }
-        //if - ok -> update password form next
+        //if - ok -> update password form next в форму
         model.addAttribute("email", email);
         return "reset_password_form"; // reset password
     }
 
-    //4
+
     //resrt the password
     @PostMapping("/reset-password")
     public String resetPassword(@RequestParam("email") String email,
@@ -93,9 +92,9 @@ public class PasswordResetController {
         }
 
         //check is user exist by email
-        User user=userService.findByEmail(email);
-        if (user==null) {
-            model.addAttribute("erroe", "No account associated with that email address was found.");
+        User user = userService.findByEmail(email);
+        if (user == null) {
+            model.addAttribute("error", "No account associated with that email address was found.");
             return "forgot_password_form";
         }
 
@@ -103,9 +102,9 @@ public class PasswordResetController {
         user.setPassword(passwordEncoder.encode(password));
         userService.saveUser(user);
         //succssed message
-        session.setAttribute("message", new Message("Password successfully updated","alert-success"));
+        session.setAttribute("message", new Message("Password successfully updated", "alert-success"));
 
 
-        return "login"; // redirect to the login page
+        return "login";
     }
 }

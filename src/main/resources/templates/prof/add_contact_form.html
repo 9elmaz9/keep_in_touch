@@ -1,12 +1,121 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="prof/base::layout(~{::section})">
 <head>
+    <meta charset="UTF-8"/>
+    <link href="/img/favicon.ico" rel="icon" type="image/png"/>
 
-    <meta charset="UTF-8" />
     <title>User Dashboard</title>
 </head>
 <body>
+
+
 <section>
+    <div class="card mr-5">
+        <div class="card-body">
+            <div th:if="${session.message}" class="alert alert-dismissible fade show"
+                 th:classappend="${session.message.type}" role="alert">
+                <span th:text="${session.message.content}"></span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
+            </div>
+
+            <h1 class="text-center">Add Contact</h1>
+            <div class="container-fluid mt-1">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <form th:action="@{/user/process-contact}" th:object="${contact}" enctype="multipart/form-data"
+                              method="post" class="mt-2">
+
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i class="fa fa-user-tie"></i>
+                                    </div>
+                                </div>
+
+                                <input type="text" required id="name" name="name" class="form-control"
+                                       placeholder="Enter name here">
+                            </div>
+
+                            <div class="input-group mt-3">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                </div>
+                                <input type="text" id="nickName" name="nickName" class="form-control"
+                                       placeholder="Enter nickname here">
+                            </div>
+
+                            <div class="input-group mt-3">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i class="fa fa-envelope"></i>
+                                    </div>
+                                </div>
+                                <input required type="email" id="email" name="email" class="form-control"
+                                       placeholder="Enter email here">
+                            </div>
+
+                            <div class="input-group mt-3">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i class="fa fa-phone"></i>
+                                    </div>
+                                </div>
+                                <input type="number" id="phone" name="phone" required class="form-control"
+                                       placeholder="Enter phone number here">
+                            </div>
+
+                            <div class="input-group mt-3">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i class="fa fa-briefcase"></i>
+                                    </div>
+                                </div>
+                                <input type="text" id="work" name="work" class="form-control"
+                                       placeholder="Enter occupation here">
+                            </div>
+
+                            <div class="form-group mt-3">
+                                <textarea name="description" id="description" rows="10" class="form-control"
+                                          placeholder="Enter description here"></textarea>
+                            </div>
+
+                            <div class="custom-file">
+                                <input type="file" name="profileImage"/>
+                            </div>
+
+                            <div class="container text-center mt-3">
+                                <button class="btn btn-lg btn-success ">Save</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CKEditor CDN -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#description'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+    <script>
+        $(document).ready(() => {
+            $(".item").removeClass("active");
+            $("#add-contact-link").addClass("active");
+            $(".nav-item").removeClass("active");
+            $("#home-route").addClass("active");
+        });
+    </script>
 </section>
 </body>
 </html>

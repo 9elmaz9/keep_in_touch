@@ -1,0 +1,356 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower:wght@400;500;600;700;800&display=swap');
+
+body {
+    --font-family: 'Indie Flower', cursive;
+}
+
+:root {
+    --primary-color: rgba(58, 44, 44, 0.37);
+    --secondary-color: #666;
+    --background-color: #e2e2e2;
+    --text-color: rgba(11, 12, 11, 0.89);
+    --banner-background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.0)), url('../img/banner.jpg');
+    --card-background: #ffffff; /* Цвет фона карточек */
+    --login-box-background: #ffffff; /* Цвет фона формы логина */
+    --sidebar-background: #ffffff; /* Цвет фона сайдбара */
+    --sidebar-text-color: grey; /* Цвет текста в сайдбаре */
+    --sidebar-hover-text-color: black; /* Цвет текста при наведении на ссылки в сайдбаре */
+    --divider-color: #e2e2e2; /* Цвет разделителя в сайдбаре */
+    --search-result-background: white; /* Цвет фона для результатов поиска */
+    --background-size: cover;
+}
+
+
+/* Обнуление отступов и рамок, чтобы стили применялись одинаково во всех браузерах */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+/* Устанавливаем высоту для body и html на 100% и основной шрифт */
+body, html {
+    overflow: scroll;
+    height: auto;
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-size: 20px;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+
+}
+
+/* Стили для ссылок */
+a {
+    font-size: 20px;
+    line-height: 1.7;
+    color: var(--secondary-color);
+    margin: 0;
+    transition: all 0.4s; /* Плавный переход для всех изменений */
+}
+
+a:focus {
+    outline: none !important; /* Убираем обводку при фокусе */
+}
+
+a:hover {
+    text-decoration: none; /* Убираем подчеркивание при наведении */
+    color: var(--primary-color); /* Меняем цвет текста при наведении */
+}
+
+/* Убираем отступы у заголовков */
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+/* Стили для абзацев */
+p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--secondary-color);
+    margin: 0;
+}
+
+/* Убираем отступы у списков */
+ul, li {
+    margin: 0;
+    list-style-type: none;
+}
+
+/* Убираем обводку и рамки у input и textarea */
+input, textarea {
+    outline: none;
+    border: none;
+}
+
+/* Убираем цвет рамки при фокусе */
+input:focus, textarea:focus {
+    border-color: transparent !important;
+}
+
+/* Стили для placeholder */
+input::placeholder, textarea::placeholder {
+    color: #999;
+}
+
+/* Стили для кнопок
+button {
+	outline: none !important;
+	border: none;
+	background: transparent;
+	cursor: pointer;  /* Курсор указывает на возможность клика
+	color: deeppink;
+} */
+
+/* Убираем рамки у iframe */
+iframe {
+    border: none !important;
+}
+
+/* Основной блок контактной формы */
+.contact1 {
+    width: 100%;
+    min-height: 100%;
+    padding: 15px;
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('../img/banner-dark.jpg'); /* Фон баннера с затемнением */
+    background-size: cover; /* Масштабируем фон для покрытия всей области */
+    background-position: center; /* Центрируем фон */
+    background-repeat: no-repeat; /* Запрещаем повторение фона */
+    display: flex;
+    justify-content: center;
+
+
+}
+
+
+/* Контейнер для контактной формы */
+.container-contact1 {
+    width: 100%;
+    max-width: 1163px;
+    border-radius: 10px;
+    overflow: auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 90px 130px 88px 148px;
+    background-repeat: no-repeat; /* Запрещаем повторение фона */
+    background-position: center; /* Центрируем фон */
+
+
+}
+
+
+/* Блок для изображения в контактной форме */
+.contact1-pic {
+    flex: 1;
+    max-width: 296px;
+}
+
+/* Стили для изображения */
+.contact1-pic img {
+    max-width: 100%;
+}
+
+/* Блок для формы */
+.contact1-form {
+    flex: 1;
+    max-width: 390px;
+    width: 100%;
+}
+
+/* Заголовок формы */
+.contact1-form-title {
+    display: block;
+    font-size: 28px;
+    color: var(--text-color);
+    line-height: 1.2;
+    text-align: center;
+    padding-bottom: 44px;
+
+}
+
+/* Стили для полей ввода */
+.input1 {
+    width: 100%;
+    /*	background: rgba(255,255,255,0.5);  Используем цвет фона, чтобы избежать наложения без этой штукуи в констакте не фона за емейлом  */
+    background: #e2e2e2;;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--secondary-color);
+    padding: 0 30px;
+    border-radius: 25px;
+    margin-bottom: 20px;
+    height: 100px;
+
+
+}
+
+
+textarea.input1 {
+    min-height: 150px;
+    padding: 12px 30px;
+}
+
+/* Тень для поля ввода */
+.shadow-input1 {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0;
+    color: rgba(87, 184, 70, 0.5);
+}
+
+.input1:focus + .shadow-input1 {
+    animation: anim-shadow 0.5s ease-in-out forwards;
+}
+
+/* Анимация для тени */
+@keyframes anim-shadow {
+    to {
+        box-shadow: 0 0 80px 30px;
+        opacity: 0;
+    }
+}
+
+/* Контейнер для кнопки формы */
+.container-contact1-form-btn {
+    display: flex;
+    justify-content: center;
+}
+
+/* Стили для кнопки формы */
+.contact1-form-btn {
+    min-width: 193px;
+    height: 50px;
+    border-radius: 25px;
+    background: var(--primary-color);
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 25px;
+    transition: all 0.4s;
+}
+
+.contact1-form-btn i {
+    margin-left: 7px;
+    transition: all 0.4s;
+}
+
+.contact1-form-btn:hover {
+    background: #333;
+
+}
+
+.contact1-form-btn:hover i {
+    transform: translateX(10px);
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 1200px) {
+    .contact1-pic {
+        width: 33.5%;
+    }
+
+    .contact1-form {
+        width: 44%;
+    }
+}
+
+@media (max-width: 992px) {
+    .container-contact1 {
+        padding: 90px 80px 88px 90px;
+    }
+
+    .contact1-pic {
+        width: 35%;
+    }
+
+    .contact1-form {
+        width: 55%;
+    }
+}
+
+@media (max-width: 768px) {
+    .container-contact1 {
+        padding: 90px 80px 88px;
+    }
+
+    .contact1-pic {
+        display: none;
+    }
+
+    .contact1-form {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .container-contact1 {
+        padding: 90px 15px 88px;
+    }
+}
+
+/* Стили для валидации полей */
+.validate-input {
+    position: relative;
+}
+
+.alert-validate::before {
+    content: attr(data-validate);
+    position: absolute;
+    max-width: 70%;
+    background-color: #fff;
+    border: 1px solid #c80000;
+    border-radius: 13px;
+    padding: 4px 25px 4px 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 8px;
+    pointer-events: none;
+    color: #c80000;
+    font-size: 13px;
+    line-height: 1.4;
+    text-align: left;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+
+.alert-validate::after {
+    content: "\f06a";
+    font-family: 'Indie Flower', cursive;;
+    display: block;
+    position: absolute;
+    color: #c80000;
+    font-size: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 13px;
+}
+
+.alert-validate:hover:before {
+    visibility: visible;
+    opacity: 1;
+}
+
+@media (max-width: 992px) {
+    .alert-validate::before {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+
+.my-card {
+    background-color: rgba(255, 255, 255, 0);
+}

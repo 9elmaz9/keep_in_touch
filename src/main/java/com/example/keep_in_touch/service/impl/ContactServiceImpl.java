@@ -30,7 +30,8 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public void saveContact(Contact contact) {
         if (contact.getCid() != 0) {
-            contactRepository.findById(contact.getCid()).ifPresent(existingContact -> {
+            Contact existingContact = contactRepository.findById(contact.getCid()).orElse(null);
+            if (existingContact != null) {
                 existingContact.setName(contact.getName());
                 existingContact.setNickName(contact.getNickName());
                 existingContact.setWork(contact.getWork());
@@ -43,11 +44,11 @@ public class ContactServiceImpl implements ContactService {
                 Set<Event> existingEvents = existingContact.getEvents();
                 contact.setEvents(existingEvents);
 
-                contactRepository.save(existingContact);
-            });
-        } else {
-            contactRepository.save(contact);
+                contact = existingContact;
+            }
         }
+            contactRepository.save(contact);
+
     }
 
 
@@ -82,16 +83,15 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public ContactDTO getContactDTOById(int id) {
         Contact contact = getContactById(id);
-        if (contact == null) {
-            return null;
-        }
-        return contactMapper.toDTO(contact);
+        return contact != null ? contactMapper.toDTO(contact) : null;
     }
 
 
     //Сохраняет ContactDTO, преобразует его в Contact, и возвращает сохраненную сущность
     @Override
     public Contact saveContactDTO(ContactDTO contactDTO) {
-        return contactRepository.save(contactMapper.toEntity(contactDTO));
+        Contact contact = contactMapper.toEntity(contactDTO);
+        return contactRepository.save(contact);
+        //Сохраняет ContactDTO, преобразует его в Contact, и возвращает сохраненную сущность.
     }
 }

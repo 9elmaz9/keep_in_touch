@@ -12,7 +12,8 @@ import java.util.List;
 
 //Реализация интерфейса EventService для управления сущностями Event
 @Service
-public class EventServiceImpl implements EventService {
+public class
+EventServiceImpl implements EventService {
 
     @Autowired
     private EventRepository eventRepository;
@@ -54,16 +55,14 @@ public class EventServiceImpl implements EventService {
     @Override
     public EventDTO getEventDTOById(Long eventId) {
         Event event = findEventById(eventId);
-        if (event == null) {
-            return null;
-        }
-        return eventMapper.toDTO(event);
+        return event != null ? eventMapper.toDTO(event) : null;
     }
 
     //Сохраняет объект EventDTO, преобразует его в сущность Event и возвращает сохраненную сущность
     @Override
     public Event saveEventDTO(EventDTO eventDTO) {
-         return eventRepository.save(eventMapper.toEntity(eventDTO));
+        Event event = eventMapper.toEntity(eventDTO);
+        return eventRepository.save(event);
 
     }
 }

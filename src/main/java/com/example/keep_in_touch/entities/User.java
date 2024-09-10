@@ -11,7 +11,7 @@ import jakarta.validation.constraints.Size;
 import org.springframework.transaction.reactive.GenericReactiveTransaction;
 
 
-//Entity class for User
+//Entity class for User jpa
 
 @Entity
 @Table(name = "users")
@@ -24,12 +24,13 @@ public class User {
 
     @NotBlank(message = "Name field is required")
     //It is mandatory (cannot be blank) and must be between 2 and 20 characters long.
-    @Size(min = 2, max = 20, message = "minimim 2 and maximum 20 characters are allowed!")
+    @Size(min = 2, max = 20, message = "minimum 2 and maximum 20 characters are allowed!")
     private String name;
     @Column(unique = true)  // It must be unique in the database and is mandatory.
     @NotBlank(message = "email field is required!")
     @Email(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$", message = "Invalid Email !!!")
     private String email;
+
     @NotBlank(message = "Password should not be empty!")
 //It is mandatory and must be at least 8 characters long.
     @Size(min = 8, message = "Password should be at least 8 characters long!")
@@ -59,22 +60,19 @@ public class User {
     private String secretAnswer;
 
 
-    /**
-     * One-to-many relationship with the Contact entity.
-     * A user can have multiple contacts.
-     * CascadeType.ALL means that all operations (e.g., persist, remove) on User will cascade to its contacts.
-     * FetchType.LAZY means that contacts are loaded on demand.
-     * The "user" field in the Contact entity is used to map this relationship.
-     */
+
+     // One-to-many relationship with the Contact entity.A user can have multiple contacts.
+     // CascadeType.ALL means that all operations (e.g., persist, remove) on User will cascade to its contacts.
+     // FetchType.LAZY means that contacts are loaded on demand.
+     // The "user" field in the Contact entity is used to map this relationship.
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
-    private List<Contact> contacs = new ArrayList<>();
+    private List<Contact> contacts = new ArrayList<>();
 
     @Column(unique = true)
-    //The unique username of the user.
     private String username;
 
     // Getter and setter methods for each attribute of the User class.
-
 
     public int getId() {
         return id;
@@ -165,12 +163,12 @@ public class User {
         this.secretAnswer = secretAnswer;
     }
 
-    public List<Contact> getContacs() {
-        return contacs;
+    public List<Contact> getContacts() {
+        return contacts;
     }
 
-    public void setContacs(List<Contact> contacs) {
-        this.contacs = contacs;
+    public void setContacts(List<Contact> contacs) {
+        this.contacts = contacs;
     }
 
     public String getUsername() {

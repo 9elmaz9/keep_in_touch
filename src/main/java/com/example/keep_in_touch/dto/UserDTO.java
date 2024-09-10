@@ -23,6 +23,7 @@ public class UserDTO {
 
     // Getter and setter methods for each attribute of the UserDTO class
 
+
     public int getId() {
         return id;
     }

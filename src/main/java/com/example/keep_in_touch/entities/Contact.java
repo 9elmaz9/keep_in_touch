@@ -124,4 +124,10 @@ public class Contact {
     public void setEvents(Set<Event> events) {
         this.events = events;
     }
+
+    @Override
+    public String toString() {
+        return "Contact [cid=" + cid + ", name=" + name + ", nickName=" + nickName + ", work=" + work + ", email="
+                + email + ", phone=" + phone + ", image=" + image + ", description=" + description + "]";
+    }
 }

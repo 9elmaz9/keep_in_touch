@@ -31,7 +31,7 @@ public class EventMapper {
         dto.setNote(event.getNote());
         dto.setUserId(event.getUser().getId());
         dto.setContactId(event.getContact().getCid());
-        dto.setContactName(event.getContact().getName()); // Добавлено имя контакта в DTO
+       // dto.setContactName(event.getContact().getName()); // Добавлено имя контакта в DTO
 
         return dto;
     }

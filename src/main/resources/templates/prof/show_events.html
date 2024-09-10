@@ -2,11 +2,149 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       th:replace="prof/base::layout(~{::section})">
 <head>
-    <meta charset="UTF-8" />
-    <title>View Contacts</title>
+    <meta charset="UTF-8"/>
+    <link href="/img/favicon.ico" rel="icon" type="image/png"/>
+    <title>View Events</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+
 </head>
 <body>
 <section>
+    <div class="card mr-3 ml-3">
+        <div th:if="${session.message}" class="alert alert-dismissible fade show"
+             th:classappend="${session.message.type}" role="alert">
+            <span th:text="${session.message.content}"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
+        </div>
+        <div class="card-body">
+            <h1 class="text-center">Your Events</h1>
+
+            <!-- Search bar  -->
+            <div class="search-container my-4">
+                <input onkeyup="search()" id="search-input" type="text" class="form-control"
+                       placeholder="Search your events..."/>
+                <div class="search-result"></div>
+            </div>
+
+            <!-- Button to download events as CSV -->
+            <div class="text-right mb-3">
+                <button onclick="downloadCSV()" class="btn btn-sm btn-success">Download Events</button>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover mt-5">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Contact</th>
+                        <th scope="col">Start</th>
+                        <th scope="col">Note</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody id="event-table-body">
+                    <tr th:each="e : ${events}">
+                        <td><span th:text="${e.title}" class="title_field"></span></td>
+                        <td><span th:text="${e.contactName}" class="contact_field"></span></td>
+                        <td><span th:text="${e.start}" class="start_field"></span></td>
+                        <td><span th:text="${e.note}" class="note_field"></span></td>
+                        <td>
+                            <form method="post" th:action="@{'/api/events/update/' + ${e.id}}">
+                                <button type="submit" class="btn btn-sm btn-primary p-2"
+                                        style="width: 100px; height: 60px; background-color: #007bff; color: white;">
+                                    <i class="fa-solid fa-pen-to-square fa-2x mx-3"></i>
+                                </button>
+                            </form>
+
+                            <button class="btn btn-sm btn-danger mt-2 p-2"
+                                    style="width: 100px; height: 60px; background-color: #dc3545; color: white;">
+                                <a href="#" th:onclick="|deleteEvent(${e.id})|"><i
+                                        class="fa-solid fa-trash fa-2x text-white"></i></a>
+                            </button>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li th:if="${currentPage != 0}" class="page-item"><a class="page-link"
+                                                                         th:href="@{'/api/events/show-events?page=' + ${currentPage - 1}}">Previous</a>
+                    </li>
+                    <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}" th:with="iMinusOne=${i - 1}"
+                        th:classappend="${currentPage == iMinusOne} ? 'active' : ''">
+                        <a class="page-link" th:href="@{'/api/events/show-events?page=' + ${iMinusOne}}"><span
+                                th:text="${i}"></span></a>
+                    </li>
+                    <li th:if="${currentPage + 1 != totalPages}" class="page-item"><a class="page-link"
+                                                                                      th:href="@{'/api/events/show-events?page=' + ${currentPage + 1}}">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <script>
+        $(document).ready(() => {
+            $(".item").removeClass("active");
+            $("#view-events-link").addClass("active");
+            $(".nav-item").removeClass("active");
+            $("#home-route").addClass("active");
+            sortEvents();
+        });
+
+        // Function to sort events alphabetically by title
+        function sortEvents() {
+            var tableBody = document.getElementById('event-table-body');
+            var rows = Array.from(tableBody.getElementsByTagName('tr'));
+
+            var sortedFragment = document.createDocumentFragment();
+
+            rows.sort(function (a, b) {
+                var titleA = a.querySelector('.title_field').textContent.toLowerCase();
+                var titleB = b.querySelector('.title_field').textContent.toLowerCase();
+                if (titleA < titleB) return -1;
+                if (titleA > titleB) return 1;
+                return 0;
+            });
+
+            rows.forEach(function (row) {
+                sortedFragment.appendChild(row);
+            });
+
+            tableBody.innerHTML = '';
+            tableBody.appendChild(sortedFragment);
+        }
+
+        // Function to download events as a CSV file
+        function downloadCSV() {
+            var rows = document.querySelectorAll('#event-table-body tr');
+            var csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "ID,Title,Contact,Start,Note\n"; // Add headers to CSV
+
+            rows.forEach(row => {
+                var cols = row.querySelectorAll('th, td');
+                var data = [];
+                cols.forEach(col => {
+                    var text = col.textContent.replace(/,/g, ""); // Remove commas to avoid CSV format issues
+                    data.push(text.trim());
+                });
+                csvContent += data.join(",") + "\n"; // Add row data to CSV
+            });
+
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "events.csv");
+            document.body.appendChild(link); // Required for Firefox
+
+            link.click(); // This will download the data file named "events.csv"
+        }
+    </script>
 </section>
 </body>
 </html>

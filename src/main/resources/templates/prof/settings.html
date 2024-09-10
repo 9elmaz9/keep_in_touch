@@ -2,13 +2,60 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       th:replace="prof/base::layout(~{::section})">
 <head>
-    <!-- Устанавливаем кодировку страницы -->
     <meta charset="UTF-8" />
-    <!-- Заголовок страницы -->
+    <link href="/img/favicon.ico" rel="icon" type="image/png"/>
     <title>User Dashboard</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <section>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div th:if="${session.message}"
+                     class="alert alert-dismissible fade show"
+                     th:classappend="${session.message.type}" role="alert">
+                    <span th:text="${session.message.content}"></span>
+                    <button type="button" class="close" data-dismiss="alert"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="mb-3">Change Password</h3>
+                        <form id="changePasswordForm" th:action="@{/user/change-password}" method="post">
+                            <div class="form-group">
+                                <input type="password" name="oldPassword" class="form-control"
+                                       placeholder="Enter old password" required />
+                            </div>
+                            <div class="form-group">
+                                <input type="password" id="newPassword" name="newPassword" class="form-control"
+                                       placeholder="Enter new password" required
+                                       pattern=".{8,}"
+                                       title="Password must be at least 8 characters long." />
+                            </div>
+                            <div class="container text-center">
+                                <button class="btn btn-lg btn-success" type="submit">Submit</button>
+                                <button class="btn btn-lg btn-danger" type="reset">Reset</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(() => {
+            $(".item").removeClass("active");
+            $("#settings-link").addClass("active");
+            $(".nav-item").removeClass("active");
+            $("#settings-route").addClass("active");
+        });
+    </script>
 </section>
 </body>
 </html>

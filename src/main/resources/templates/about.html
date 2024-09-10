@@ -1,108 +1,72 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Contact </title>
+    <title>Contact</title>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="/img/favicon.ico"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="icon" type="image/png" href="img/favicon.ico" />
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
-    <link rel="stylesheet" th:href="@{/css/style.css}" />
-
     <!-- Vendor CSS Files -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hamburgers/1.1.3/hamburgers.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
-
     <!-- Custom CSS Files -->
-    <link rel="stylesheet" type="text/css" href="css/util.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-
-
-    <!-- Добавляем стили для темной и светлой тем -->
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
     <style>
 
-
-        /* Дополнительные стили для навигационной панели */
-        .navbar.light-mode {
-            background-color: #f8f9fa;
-        }
-        .navbar.dark-mode {
-            background-color: #333333;
-        }
-
-        /* Стили для активных элементов навигации */
-        .navbar-nav .nav-item.active .nav-link {
-            color: #fff !important;
-        }
-
-
-        /* Изображение в контактной форме */
-        .contact1-pic img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        /* Избегаем затемнения изображения при темной теме */
-        .contact1.dark-mode .contact1-pic img {
-            opacity: 1; /* Полная непрозрачность изображения */
-        }
-
-
     </style>
-
 </head>
-<body class="light-mode"> <!-- По умолчанию включаем светлую тему -->
+<body class="light-mode">
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary p-3 pb-4">
-    <a class="navbar-brand" href="#">Keep in Touch</a>
+
+
+    <a class="navbar-brand" style="font-size: 28px; padding: 10px 20px;" th:href="@{/}">| K i T |</a>
+
+    <!--  for mob phone-->
     <button class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false"
             aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto text-uppercase">
-            <li id="home-route" class="nav-item"><a class="nav-link"
+            <li id="home-route" class="nav-item"><a class="nav-link" style="font-size: 25px; padding: 10px 20px;"
                                                     th:href="@{/}">HOME</a></li>
-            <li id="admin-route" class="nav-item"
-                th:if="${user != null and user.role != null and user.role.equals('ROLE_ADMIN') }"><a
-                    class="nav-link" th:href="@{/admin/dashboard/0}">ADMIN DASHBOARD</a></li>
-            <li id="about-route" class="nav-item active"><a
-                    class="nav-link" th:href="@{/about}">Contact</a></li>
-
-            <!-- Hide these links when the user is authenticated -->
-            <li id="login-route" class="nav-item" th:unless="${user}"><a
-                    class="nav-link" th:href="@{/signin}">LOGIN</a></li>
-            <li id="signup-route" class="nav-item" th:unless="${user}"><a
-                    class="nav-link" th:href="@{/signup}">SIGNUP</a></li>
-            <li class="nav-item" th:if="${user}"><a class="nav-link"
-                                                    th:href="@{/logout}">LOGOUT</a></li>
-
-            <!-- Кнопка переключения темной темы -->
-            <li class="nav-item">
-                <button id="theme-toggle" class="btn btn-outline-secondary ml-3">Switch to Dark Mode</button>
-            </li>
+            <li id="about-route" class="nav-item active"><a class="nav-link"
+                                                            style="font-size: 25px; padding: 10px 20px;"
+                                                            th:href="@{/about}">Contact</a></li>
         </ul>
     </div>
 </nav>
 
 <div class="contact1">
     <div class="container-contact1">
-        <div class="contact1-pic js-tilt" data-tilt>
+        <!-- Часы слева -->
+        <div class="clock-section">
+            <div class="clock-container">
+                <div class="clock">
+                    <div class="needle hour"></div>
+                    <div class="needle minute"></div>
+                    <div class="needle second"></div>
+                    <div class="center-point"></div>
+                </div>
+                <div class="time"></div>
+                <div class="date"></div>
+            </div>
         </div>
-        <div class="col-lg-8 offset-lg-2">
+
+        <!-- Форма Contact Me -->
+        <div class="col-lg-8">
             <div class="contact-form-card">
-                <h4 class="contact-title">Contact me</h4>
+                <h4 class="contact-title" style="font-size: 38px; padding: 10px 20px;">Contact me</h4>
                 <form id="contact-form" action="https://formspree.io/f/xeqyngpy" method="POST">
                     <div class="form-group">
                         <input name="name" class="form-control" type="text" placeholder="Name *" required>
@@ -111,10 +75,14 @@
                         <input name="_replyto" class="form-control" type="email" placeholder="Email *" required>
                     </div>
                     <div class="form-group">
-                        <textarea name="message" class="form-control" placeholder="Message *" rows="7" required></textarea>
+                        <textarea name="message" class="form-control" placeholder="Message *" rows="7"
+                                  required></textarea>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="form-control btn btn-primary">Send Message</button>
+                        <button type="submit" class="form-control btn" style="background-color: #ff5733; color: white;">
+                            Send Message
+                        </button>
+
                     </div>
                 </form>
                 <div id="success-message" style="display: none;">Your message has been sent successfully!</div>
@@ -127,15 +95,52 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
 
+<!-- Часы JavaScript -->
+<script>
+    const hourEl = document.querySelector('.hour');
+    const minuteEl = document.querySelector('.minute');
+    const secondEl = document.querySelector('.second');
+    const timeEl = document.querySelector('.time');
+    const dateEl = document.querySelector('.date');
+
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    function setTime() {
+        const time = new Date();
+        const month = time.getMonth();
+        const day = time.getDay();
+        const date = time.getDate();
+        const hours = time.getHours();
+        const hoursForClock = hours >= 13 ? hours % 12 : hours;
+        const minutes = time.getMinutes();
+        const seconds = time.getSeconds();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+
+        hourEl.style.transform = `translate(-50%, -100%) rotate(${scale(hoursForClock, 0, 12, 0, 360)}deg)`;
+        minuteEl.style.transform = `translate(-50%, -100%) rotate(${scale(minutes, 0, 60, 0, 360)}deg)`;
+        secondEl.style.transform = `translate(-50%, -100%) rotate(${scale(seconds, 0, 60, 0, 360)}deg)`;
+
+        timeEl.innerHTML = `${hoursForClock}:${minutes < 10 ? `0${minutes}` : minutes} ${ampm}`;
+        dateEl.innerHTML = `${days[day]}, ${months[month]} <span class="circle">${date}</span>`;
+    }
+
+    const scale = (num, in_min, in_max, out_min, out_max) => {
+        return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    };
+
+    setTime();
+    setInterval(setTime, 1000);
+</script>
+
+<!-- Оригинальный JavaScript код -->
 <script>
     $('.js-tilt').tilt({
         scale: 1.1
     });
 
-    document.getElementById("contact-form").addEventListener("submit", function(event) {
+    document.getElementById("contact-form").addEventListener("submit", function (event) {
         event.preventDefault();
         var formData = new FormData(this);
 
@@ -150,7 +155,7 @@
                 if (response.ok) {
                     document.getElementById("success-message").style.display = "block";
                     this.reset();
-                    setTimeout(function() {
+                    setTimeout(function () {
                         document.getElementById("success-message").style.display = "none";
                     }, 5000); // Скрыть сообщение через 5 секунд
                 }
@@ -159,30 +164,7 @@
                 console.error('Error:', error);
             });
     });
-
-    // Функция переключения темы
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    const body = document.body;
-    const navbar = document.querySelector('.navbar');
-    const contactSection = document.querySelector('.contact1');
-
-    function switchTheme() {
-        if (body.classList.contains('light-mode')) {
-            body.classList.replace('light-mode', 'dark-mode');
-            navbar.classList.replace('light-mode', 'dark-mode');
-            contactSection.classList.replace('light-mode', 'dark-mode');
-            themeToggleBtn.textContent = 'Switch to Light Mode';
-        } else {
-            body.classList.replace('dark-mode', 'light-mode');
-            navbar.classList.replace('dark-mode', 'light-mode');
-            contactSection.classList.replace('dark-mode', 'light-mode');
-            themeToggleBtn.textContent = 'Switch to Dark Mode';
-        }
-    }
-
-    themeToggleBtn.addEventListener('click', switchTheme);
 </script>
-
 <script th:src="@{/js/main.js}"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317"
         integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA=="

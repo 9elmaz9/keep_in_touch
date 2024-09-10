@@ -2,10 +2,29 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
 <head>
     <meta charset="UTF-8" />
+    <link href="/img/favicon.ico" rel="icon" type="image/png"/>
     <title>Home Page</title>
 </head>
 <body>
-<section>
+
+<section
+        class="banner d-flex justify-content-center align-items-center">
+    <div class="text-center">
+        <h1 class="font-weight-bold" style="font-size: 68px;" >Keep In Touch</h1>
+        <p style="font-size: 24px;" >COME ON!</p>
+        <button class="btn btn-lg" style="background-color: #ff5722; color: white; padding: 15px 30px; font-size: 30px;">
+            <a class="text-white" th:href="@{/user/dashboard}" style="text-decoration: none; color: inherit;">Get started</a>
+        </button>
+    </div>
+
+    <!--
+    <script>
+        $(document).ready(()=>{
+            $(".nav-item").removeClass("active");
+            $("#home-route").addClass("active");
+        });
+    </script>  -->
 </section>
+
 </body>
 </html>

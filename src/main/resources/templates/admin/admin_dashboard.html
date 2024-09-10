@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/main.css">
+
+    <link href="/img/favicon.ico" rel="icon" type="image/png"/>
+
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sortable/1.12.0/Sortable.min.js"></script>
-    <script src="/js/script.js"></script>
 </head>
 <body>
 <!-- Admin Dashboard Section -->
@@ -32,7 +34,7 @@
                         <td th:text="${user.email}"></td>
                         <td th:text="${user.role}"></td>
                         <td>
-                            <button class="btn btn-sm btn-danger mt-2 mb-2 p-2" style="width: 50px; height: 42px;"
+                            <button class="btn btn-sm btn-danger mt-2 mb-2 p-2" style="width: 55px; height: 55px;"
                                     th:if="${user.role == 'ROLE_USER'}" th:onclick="|deleteUser(${user.id})|">
                                 <i class="fa-solid fa-trash fa-2x text-white"></i>
                             </button>
@@ -58,6 +60,27 @@
         </nav>
     </div>
 </section>
+<!--
+<script>
+    function deleteContact(cId) {
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this contacte !!!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    window.location = '/user/delete/' + cId;
+                } else {
+                    swal("Your contact is safe !!!");
+                }
+            });
+    }
+</script> -->
+<script th:src="@{/js/script.js}"></script>
 </body>
 </html>
+
 

@@ -11,14 +11,14 @@ import java.util.List;
 
 //A tailored implementation of UserDetails to encapsulate the user's authentication and authorization details
 //Этот класс используется для представления информации о пользователе, которая будет использоваться Spring Security
-// для аутентификации и авторизации. Он реализует интерфейс UserDetails
+// для аутентификации и авторизации. Он реализует интерфейс UserDetails =  предоставляет методы для  получения имя пароль и роль
 public class CustomUserDetails implements UserDetails {
 
     // user data
     private User user;
 
 
-    //Конструктор, который принимает объект User и инициализирует поле user
+    //Конструктор,  принимает объект User и инициализирует поле user
     public CustomUserDetails(User user) {
         super();
         this.user = user;
@@ -27,14 +27,13 @@ public class CustomUserDetails implements UserDetails {
     // Метод, который возвращает права доступа (роли) пользователя
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Создание объекта SimpleGrantedAuthority на основе роли пользователя
+
+        // на основе роли пользователя
         SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(user.getRole());
-        // Возвращает список ролей пользователя (в данном случае только 1 роль)
+
         return List.of(simpleGrantedAuthority);
     }
     //SimpleGrantedAuthority — это конкретная реализация интерфейса GrantedAuthority в Spring Security. Она используется для представления одной роли или права пользователя в виде строки. Например, если пользователь имеет роль "ADMIN", то объект SimpleGrantedAuthority будет хранить это значение и возвращать его при необходимости.
-
-
 
 
     // Метод для получения пароля пользователя

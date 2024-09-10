@@ -1,12 +1,274 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="prof/base::layout(~{::section})">
 <head>
-
     <meta charset="UTF-8" />
+    <link href="/img/favicon.ico" rel="icon" type="image/png"/>
+
+
     <title>User Dashboard</title>
 </head>
 <body>
 <section>
+    <div th:if="${session.message}" class="alert alert-dismissible fade show" th:classappend="${session.message.type}" role="alert">
+        <span th:text="${session.message.content}"></span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
+    </div>
+    <div class="card mr-3 ml-3" >
+        <div class="card-body">
+            <div class="container text-center">
+                <img class="profile_picture" style="height: 400px; width: 400px;" th:src="@{'/img/' + ${user.imageUrl}}" alt="profile picture" />
+            </div>
+            <h1 class="text-center text-secondary font-italic font-weight-light mt-4">Come on! Add your contacts and set up events!</h1>
+            <a th:href="@{/user/add-contact-form}" class="btn btn-block text-uppercase text-white py-3 mt-5" style="background-color: #ff5722;">Add Contacts</a>
+
+            <hr/>
+            <!-- Calendar container -->
+            <div id="calendar" class="mt-5"></div>
+
+            <!-- Add Event Form -->
+            <form id="addEventForm" class="mt-4">
+                <h3>Add Event</h3>
+                <div class="form-group">
+                    <label for="title">Event Title</label>
+                    <input type="text" id="title" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="start">Start Time</label>
+                    <input type="datetime-local" id="start" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="note">Note</label>
+                    <textarea id="note" class="form-control" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="contact">Contact</label>
+                    <select id="contact" class="form-control" required>
+                        <!-- Contacts will be dynamically loaded -->
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary"  style="background-color: #ff5722;">Add Event</button>
+            </form>
+
+
+
+            <!-- Button to show/hide events -->
+            <button id="toggleEventsBtn" class="btn btn-secondary mt-4">Show Events</button>
+
+            <!-- Events List (hidden initially) -->
+            <div id="eventsContainer" class="mt-5" style="display: none;">
+                <h3>Your Events</h3>
+                <ul id="eventsList">
+                    <!-- Events will be dynamically loaded here -->
+                </ul>
+            </div>
+
+
+
+
+
+
+
+
+
+            <!-- Update Event Form -->
+            <form id="updateEventForm" class="mt-4" style="display: none;">
+                <h3>Update Event</h3>
+                <div class="form-group">
+                    <label for="updateTitle">Event Title</label>
+                    <input type="text" id="updateTitle" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateStart">Start Time</label>
+                    <input type="datetime-local" id="updateStart" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateNote">Note</label>
+                    <textarea id="updateNote" class="form-control" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="updateContact">Contact</label>
+                    <select id="updateContact" class="form-control" required>
+                        <!-- Contacts will be dynamically loaded -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="contactName">Contact Name</label>
+                    <input type="text" id="contactName" class="form-control" readonly>
+                </div>
+                <input type="hidden" id="updateEventId">
+                <button type="submit" class="btn btn-primary">Update Event</button>
+                <button type="button" class="btn btn-secondary" id="cancelUpdate">Cancel</button>
+                <button type="button" class="btn btn-danger" id="deleteEvent">Delete Event</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            //9,09
+            var eventsContainer = document.getElementById('eventsContainer');
+            var eventsList = document.getElementById('eventsList');
+            var toggleEventsBtn = document.getElementById('toggleEventsBtn');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: '/api/events/user', // Fetch events from backend
+                eventClick: function(info) {
+                    // Populate the update form
+                    document.getElementById('updateTitle').value = info.event.title;
+
+                    // Convert event start time to local datetime format
+                    const eventStartTime = new Date(info.event.start);
+                    eventStartTime.setHours(eventStartTime.getHours() + 3);
+
+                    const localDateTime = eventStartTime.toISOString().slice(0, 16);
+
+                    document.getElementById('updateStart').value = localDateTime;
+                    document.getElementById('updateNote').value = info.event.extendedProps.note;
+                    document.getElementById('updateContact').value = info.event.extendedProps.contactId;
+                    document.getElementById('updateEventId').value = info.event.id;
+                    document.getElementById('contactName').value = info.event.extendedProps.contactName;
+
+                    document.getElementById('addEventForm').style.display = 'none';
+                    document.getElementById('updateEventForm').style.display = 'block';
+                }
+            });
+
+            calendar.render();
+        });
+
+        //9,09
+        // Toggle event list visibility
+        toggleEventsBtn.addEventListener('click', function() {
+            if (eventsContainer.style.display === 'none') {
+                eventsContainer.style.display = 'block';
+                toggleEventsBtn.innerText = 'Hide Events';
+                loadEvents(); // Load events when showing the list
+            } else {
+                eventsContainer.style.display = 'none';
+                toggleEventsBtn.innerText = 'Show Events';
+            }
+        }); // 9,09
+
+        //9,09 АХть
+        // Function to load events
+        function loadEvents() {
+            eventsList.innerHTML = ""; // Clear the list before populating
+            fetch('/api/events/user')
+                .then(response => response.json())
+                .then(events => {
+                    console.log('Fetched events:', events); // Вывод в консоль
+                    events.forEach(event => {
+                        const listItem = document.createElement('li');
+                        listItem.innerText = `${event.title} - ${new Date(event.start).toLocaleString()} (${event.contactName})`;
+                        eventsList.appendChild(listItem);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching events:', error);
+                });
+        }
+        //9,09
+
+
+        // Add Event Form Submission
+        document.getElementById('addEventForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var title = document.getElementById('title').value;
+            var start = document.getElementById('start').value;
+            var note = document.getElementById('note').value;
+            var contact = document.getElementById('contact').value;
+
+            fetch('/api/events/add?contactId=' + contact, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title: title,
+                    start: start,
+                    note: note
+                })
+            }).then(response => response.text())
+                .then(data => {
+                    alert(data);
+                    location.reload();  // Reload the page to see the new event
+                });
+        });
+
+        // Update Event Form Submission
+        document.getElementById('updateEventForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var eventId = document.getElementById('updateEventId').value;
+            var title = document.getElementById('updateTitle').value;
+            var start = document.getElementById('updateStart').value;
+            var note = document.getElementById('updateNote').value;
+            var contact = document.getElementById('updateContact').value;
+
+            // Convert start time to ISO format
+            var startDateTime = new Date(start);
+            var startISOString = startDateTime.toISOString();
+
+            console.log("Submitting update with start time: ", startISOString);
+
+            fetch(`/api/events/update/${eventId}?contactId=${contact}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title: title,
+                    start: startISOString,
+                    note: note
+                })
+            }).then(response => response.text())
+                .then(data => {
+                    alert(data);
+                    location.reload();  // Reload the page to see the updated event
+                });
+        });
+
+        // Delete Event
+        document.getElementById('deleteEvent').addEventListener('click', function() {
+            var eventId = document.getElementById('updateEventId').value;
+            if (confirm('Are you sure you want to delete this event?')) {
+                fetch(`/api/events/delete/${eventId}`, {
+                    method: 'DELETE'
+                }).then(response => response.text())
+                    .then(data => {
+                        alert(data);
+                        location.reload();  // Reload the page to see the updated event list
+                    });
+            }
+        });
+
+        // Cancel Update
+        document.getElementById('cancelUpdate').addEventListener('click', function() {
+            document.getElementById('updateEventForm').style.display = 'none';
+            document.getElementById('addEventForm').style.display = 'block';
+        });
+
+        fetch('/api/contacts/user')
+            .then(response => response.json())
+            .then(data => {
+                // Sort contacts alphabetically by name
+                data.sort((a, b) => a.name.localeCompare(b.name));
+                var contactSelect = document.getElementById('contact');
+                var updateContactSelect = document.getElementById('updateContact');
+                data.forEach(contact => {
+                    var option = document.createElement('option');
+                    option.value = contact.cid;
+                    option.text = contact.name;
+                    contactSelect.add(option);
+                    updateContactSelect.add(option.cloneNode(true));
+                });
+            });
+    </script>
 </section>
 </body>
 </html>
+
+

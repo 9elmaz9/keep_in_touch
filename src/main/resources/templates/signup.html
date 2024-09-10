@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Document</title>
+
+</head>
+<body >
+
+
+<section>
+    <div class="container mt-3 mb-3">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="my-card">
+                    <div class="container text-center">
+                    </div>
+                    <h1 class="text-center">Register here !!!</h1>
+
+                    <!-- Block for displaying success or error message -->
+                    <div th:if="${message != null}" class="alert" th:classappend="${message.type}">
+                        <p th:text="${message.content}"></p>
+                    </div>
+
+
+                    <form th:action="@{/do-register}" method="post" th:object="${user}" id="registrationForm">
+                        <div class="form-group">
+                            <label for="form-name">Your name</label>
+                            <input type="text" class="form-control" id="form-name" aria-describedby="emailHelp"
+                                   th:value="${user.name}"
+                                   th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}" name="name" required
+                                   placeholder="Enter name">
+                            <div th:each="e : ${#fields.errors('name')}" th:text="${e}"
+                                 class="invalid-feedback"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="form-email">Your email</label>
+                            <input type="email" class="form-control" id="form-email" aria-describedby="emailHelp"
+                                   th:value="${user.email}"
+
+                                   th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}" name="email" required
+                                   placeholder="Enter email">
+                            <div th:each="e : ${#fields.errors('email')}" th:text="${e}"
+                                 class="invalid-feedback"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="form-password">Your password</label>
+                            <input type="password" class="form-control" id="form-password"
+                                   th:classappend="${#fields.hasErrors('password') ? 'is-invalid' : ''}"
+                                   aria-describedby="emailHelp" name="password" required placeholder="Enter password">
+                            <div th:each="e : ${#fields.errors('password')}" th:text="${e}"
+                                 class="invalid-feedback"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="form-confirm-password">Confirm your password</label>
+                            <input type="password" class="form-control" id="form-confirm-password" required placeholder="Confirm password">
+                            <div id="confirmPasswordFeedback" class="invalid-feedback"></div>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="about" th:text="${user.about}" class="form-control" id="form-about" rows="5"
+                                      required placeholder="Enter about yourself"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="form-secret-question">Select a secret question</label>
+                            <select class="form-control" id="form-secret-question" name="secretQuestion" required>
+                                <option value="What was the name of your first pet?">What was the name of your first pet?</option>
+                                <option value="What is the title of your favorite book?">What is the title of your favorite book?</option>
+                                <option value="What is your favorite color?">What is your favorite color?</option>
+                                <option value="What city were you born in?">What city were you born in?</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="form-secret-answer">Your answer</label>
+                            <input type="text" class="form-control" id="form-secret-answer" name="secretAnswer" required placeholder="Enter your answer">
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" name="agreement" class="form-check-input" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">
+                                <a href="https://www.privacypolicies.com/live/4d18e223-9822-4ec9-a0cd-dfee5db39cc0" target="_blank">Agree to terms and conditions</a>
+                            </label>
+                        </div>
+                        <div class="container text-center">
+                            <button type="submit" class="btn btn-lg  btn-success">Submit</button>
+                            <button type="reset" class="btn btn-lg btn-warning">Reset</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <script>
+        $(document).ready(()=>{
+            $(".nav-item").removeClass("active");
+            $("#signup-route").addClass("active");
+        });
+
+        document.getElementById("registrationForm").addEventListener("submit", function(event) {
+            let password = document.getElementById("form-password").value;
+            let confirmPassword = document.getElementById("form-confirm-password").value;
+
+            if (password !== confirmPassword) {
+                event.preventDefault();
+                let confirmPasswordFeedback = document.getElementById("confirmPasswordFeedback");
+                confirmPasswordFeedback.textContent = "Passwords do not match!";
+                document.getElementById("form-confirm-password").classList.add("is-invalid");
+            }
+        });
+    </script>
+</section>
+</body>
+</html>

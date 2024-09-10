@@ -6,6 +6,8 @@ import com.example.keep_in_touch.entities.User;
 import java.util.List;
 import java.util.Optional;
 
+//ключевые методы для работы пользователя
+
 public interface UserService {
 
     User getUserByUsername(String username);

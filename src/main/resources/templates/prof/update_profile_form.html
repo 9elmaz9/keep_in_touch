@@ -1,12 +1,74 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="prof/base::layout(~{::section})">
 <head>
-
     <meta charset="UTF-8" />
+    <link href="/img/favicon.ico" rel="icon" type="image/png"/>
+
+
     <title>User Dashboard</title>
 </head>
 <body>
 <section>
+    <div class="card mr-3 ml-3">
+        <div class="card-body">
+            <div class="container text-center">
+                <form th:action="@{/user/process-update-profile}"
+                      enctype="multipart/form-data" method="post">
+                    <img class="profile_picture" style="height: 200px; width: 200px;"
+                         th:src="@{'/img/' + ${user.imageUrl}}" alt="profile picture" />
+                    <table class="table table-striped table-hover mt-4">
+                        <tbody>
+                        <tr>
+                            <th scope="row">#ID</th>
+                            <td th:text="${'USER_' + user.id}">1</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Name</th>
+                            <td><input name="name" type="text" class="form-control"
+                                       th:value="${user.name}" /></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Email</th>
+                            <td th:text="${user.email}">Mark</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Role</th>
+                            <td th:text="${user.role}">Mark</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Active</th>
+                            <td th:text="${user.enabled}">Mark</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Description</th>
+                            <td><textarea name="about" th:text="${user.about}"
+                                          class="form-control" id="form-about" rows="3"
+                                          placeholder="Enter about yourself"></textarea></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">New Profile Picture</th>
+                            <td><div class="custom-file">
+                                <input type="file" name="profileImage" />
+                            </div></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="container text-center">
+                        <button type="submit" class="btn btn-lg btn-warning">Save</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        $(document).ready(()=>{
+            $(".item").removeClass("active");
+            $("#profile-link").addClass("active");
+            $(".nav-item").removeClass("active");
+            $("#profile-route").addClass("active");
+        });
+    </script>
 </section>
 </body>
 </html>

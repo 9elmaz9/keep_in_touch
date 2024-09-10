@@ -7,7 +7,9 @@ import com.example.keep_in_touch.helper.Message;
 import com.example.keep_in_touch.mapper.UserMapper;
 import com.example.keep_in_touch.service.ContactService;
 import com.example.keep_in_touch.service.UserService;
+
 import jakarta.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
@@ -16,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -44,9 +47,7 @@ public class UserController {
     //private NotificationService notificationService;
 
 
-    /**
-     * Метод добавляет данные о текущем пользователе в модель, чтобы они были доступны на всех страницах
-     */
+    //Метод добавляет данные о текущем пользователе в модель, чтобы они были доступны на всех страницах
     @ModelAttribute
     public void addCommonData(Model model,
                               Principal principal) {
@@ -57,11 +58,8 @@ public class UserController {
     }
 
 
-    /**
-     * отображает главную страницу пользователя dashboard с инфо о текущем пользователе
-     */
+    //отображение пользовательской панели управления
     @GetMapping("/dashboard")
-    // principal: Предоставляет информацию о текущем аутентифицированном пользователе, в частности, его имя
     public String dashboard(Model model,
                             Principal principal,
                             HttpSession session) {
@@ -74,91 +72,74 @@ public class UserController {
     }
 
 
-    /**
-     * add-contact-form: Отображает форму для добавления нового контакта
-     */
+    // Отображает форму для добавления нового контакта
     @GetMapping("/add-contact-form")
     public String addContactForm(Model model,
                                  Principal principal,
                                  HttpSession session) {
 
         String username = principal.getName();
-        User user = userService.getUserByUsername(username);
-        model.addAttribute("title", "Add Contact");
+        User user = userService.getUserByUsername(username); //bd
+        model.addAttribute("title", "Add Contact"); // emptyform
         model.addAttribute("contact", new Contact());
         return "prof/add_contact_form";
     }
 
 
-    /**
-     * process-contact: Обрабатывает форму добавления контакта. Загружает изображение профиля, сохраняет контакт,связывая его с текущим пользователем.
-     */
+    //Обрабатывает форму добавления контакта.Загружает изображение профиля, сохраняет контакт,связывая его с текущим пользователем.
     @PostMapping("/process-contact")
-    public String processContactForm(@ModelAttribute Contact contact,
+    public String processContactForm(@ModelAttribute Contact contact,  // принимает арг
                                      @RequestParam("profileImage") MultipartFile file,
                                      Principal principal,
                                      HttpSession session,
                                      Model model) {
 
         try {
-            // Получаем имя текущего аутентифицированного пользователя
             String username = principal.getName();
-            // Находим пользователя в базе данных по имени
             User user = userService.getUserByUsername(username);
 
-            // Проверяем загруженное изображение
             if (file.isEmpty()) {
-                // Если файл не загружен, устанавливаем изображение по умолчанию
                 contact.setImage("default.webp");
             } else if (!file.getContentType().equals("image/jpeg") &&
                     !file.getContentType().equals("image/png") &&
                     !file.getContentType().equals("image/jpg")) {
-                // Если формат файла не поддерживается, устанавливаем изображение по умолчанию
+                // then ->
                 contact.setImage("default.webp");
             } else {
-                // Устанавливаем имя загруженного изображения и сохраняем его на сервере
+                //  если ок сохраняем его на сервере
                 contact.setImage(file.getOriginalFilename());
-                File saveFile = new ClassPathResource("static.img/img").getFile();
+                File saveFile = new ClassPathResource("static/img").getFile();
                 Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + file.getOriginalFilename());
                 Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             }
 
-            // Устанавливаем текущего пользователя для контакта и сохраняем контакт в базе данных
+            // контакт привязан к пользоваелю  после сборки всей инфы о нем = маил телефоне
             contact.setUser(user);
-            contactService.saveContact(contact);
+            contactService.saveContact(contact); // bd
 
-            // Очищаем форму и добавляем сообщение об успешном добавлении контакта
-            model.addAttribute("contact", new Contact());
-            session.setAttribute("message", new Message("Contact added successfully ...", "alert-success"));
+            model.addAttribute("contact", new Contact()); // пустое поле новое
+            session.setAttribute("message", new Message("Contact added successfully ", "alert-success"));
         } catch (Exception e) {
             // В случае ошибки сохраняем контакт и добавляем сообщение об ошибке
             model.addAttribute("contact", contact);
             session.setAttribute("message", new Message(e.getMessage(), "alert-danger"));
         }
 
-        // Возвращаем представление для отображения формы добавления контакта
         return "prof/add_contact_form";
     }
 
 
-    //Methods for displaying and managing contacts:
-
-    /**
-     * Отображает список контактов пользователя с поддержкой пагинации
-     */
+    //Methods for displaying and managing contacts
+    //Отображает  все контакты конкретного пользователя по4
     @GetMapping("/show-contacts/{page}")
-    //Shows the contacts for the logged-in user.
     public String showContactHandler(@PathVariable("page") Integer page,
                                      Model model,
                                      Principal principal,
                                      HttpSession session) {
 
-        // Get the username of the logged-in user
         String username = principal.getName();
-        // Find the user in the database using their username
         User user = userService.getUserByUsername(username);
 
-        // Set up pagination to show 4 contacts per page
         Pageable pageable = PageRequest.of(page, 4);
         // Get the user's contacts for the current page
         Page<Contact> contacts = contactService.findContactsByUserId(user.getId(), pageable);
@@ -170,23 +151,19 @@ public class UserController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", contacts.getTotalPages());
 
-        return "prof/show_contacts";    // the contacts view
+        return "prof/show_contacts";
 
     }
 
 
-    /**
-     * Shows the details of a specific contact-Отображает подробную информацию о контакте
-     */
+    //Shows the details of a specific contact-получение текущего полтзователя  id ,Отображает подробную информацию о контакте
     @GetMapping("/{cId}/contact")
     public String handleContactDetail(@PathVariable("cId") Integer cId,
                                       Model model,
                                       Principal principal,
                                       HttpSession session) {
 
-        // Get the username of the logged-in user
         String username = principal.getName();
-        //Find the user in the db using their username
         User user = userService.getUserByUsername(username);
         //Find the contact by its id
         Contact contact = contactService.getContactById(cId);
@@ -197,14 +174,12 @@ public class UserController {
             model.addAttribute("contact", contact);
         }
 
-        //the contact details view  // LOOK HEREEEEE
-        return "add_contact_details";
+
+        return "prof/contact_details";
     }
 
 
-    /**
-     * Deletes a contact if the logged-in user is the owner-This method handles deleting a contact.
-     */
+    //удаление по id
     @GetMapping("/delete/{cId}")
     public String deleteContactHandler(@PathVariable("cId") Integer cId,
                                        Principal principal,
@@ -217,38 +192,32 @@ public class UserController {
         if (user.getId() == contact.getUser().getId()) {
             contactService.deleteContact(contact);
 
-            // Set a success message in the session
             session.setAttribute("message", new Message("Contact deleted successfully!", "alert-success"));
         } else {
             //if not
-            session.setAttribute("message", new Message("Permission rejected", "alert-danger"));
+            session.setAttribute("message", new Message("Permission rejected!", "alert-danger"));
         }
 
-        return "redirect:/user/show-contact/0";//the redirect to contacts view
+        return "redirect:/user/show-contacts/0";
     }
 
 
-    /**
-     * Shows the form for updating a contact-This method displays the form to update a contact
-     */
+    //агружает текущие данные для редакции This method displays the form to update a contact
     @PostMapping("/update-contact/{cId}")
     public String updateFormHandler(@PathVariable("cId") Integer cId,
                                     Model model) {
 
-        //set title for the page
+        //страница формы = ниже контакт
         model.addAttribute("title", " Update Contact");
         Contact contact = contactService.getContactById(cId);
-        //add the contct to the model for using
+
         model.addAttribute("contact", contact);
 
-        return "prof/update_contact_form";//to show the update form
+        return "prof/update_contact_form";
     }
 
 
-    /**
-     * Обрабатывает форму обновления контакта, включая обновление изображения профиля
-     * Processes the update contact form, including updating the profile image
-     */
+    //Processes the update contact form, картика и кнопка сохран  из формы
     @PostMapping("/process-contact-update")
     public String processUpdateContactHandler(@ModelAttribute("contact") Contact contact,
                                               @RequestParam("profileImage") MultipartFile file,
@@ -256,73 +225,60 @@ public class UserController {
                                               Principal principal,
                                               HttpSession session) {
         try {
-            // Find the existing contact by its ID
+//old
             Contact prevContact = contactService.getContactById(contact.getCid());
-            String prevImage = prevContact.getImage();  // Get the previous profile image
+            String prevImage = prevContact.getImage();
 
-            // Get the logged-in user
             User user = userService.getUserByUsername(principal.getName());
-            // Set the user for the contact being updated
             contact.setUser(user);
 
-            //check if new img uploaded
+            //check if new img uploaded-same
             if (file.isEmpty()) {
-                contact.setImage(prevImage); // ifnot new- stay the same
+                contact.setImage(prevImage);
             } else {
-                //if new uploaded
                 contact.setImage(file.getOriginalFilename());
-                //save
-                File saveFile = new ClassPathResource("static.img/img").getFile();
+                File saveFile = new ClassPathResource("static/img").getFile();
                 Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + file.getOriginalFilename());
                 Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             }
             //save update contact to db
             contactService.saveContact(contact);
-            //+ ok message set
             session.setAttribute("message", new Message("Contact updated successfully!", "alert-success"));
-        } catch (Exception e) { // if error - display this one message
+        } catch (Exception e) { // if error
             session.setAttribute("message", new Message(e.getMessage(), "alert-danger"));
         }
-        return "redirect:/user/show-contacts/0"; //Redirect back to the contacts list
+        return "redirect:/user/show-contacts/0";
     }
 
 
-    /**
-     * Displays the user profile page
-     */
+    //профиль текущкго аутефиц польз ,из базы
     @GetMapping("/profile")
     public String profileHandler(Model model,
                                  Principal principal,
                                  HttpSession session) {
 
-        String username = principal.getName(); //check logged in or not
+        String username = principal.getName();
         User user = userService.getUserByUsername(username);
 
-        //set the title profile page
+        //заголовок в модел юзер в html
         model.addAttribute("title", "User Profile");
 
-        //return the name of view to display the profile
         return "prof/profile";
     }
 
 
-    /**
-     * This method shows the form to edit the user's profile.
-     */
+    //страница профиля редакции
     @GetMapping("/update-profile")
     public String updateProfileHandler(Model model) {
-        //set title
+
         model.addAttribute("title", "Edit Profile");
 
-        //to display update profile form
         return "prof/update_profile_form";
     }
 
 
-    /**
-     * Обрабатывает форму редактирования профиля, включая обновление имени, информации "О себе" и изображения профиля.
-     * This method processes the form to update the user's profile.
-     */
+    //  редактирования профиля,   имени, информации "О себе" и изображения
+    //
     @PostMapping("/process-update-profile")
     public String processEditProfileForm(@RequestParam("name") String name,
                                          @RequestParam("about") String about,
@@ -330,43 +286,35 @@ public class UserController {
                                          Principal principal,
                                          HttpSession session) throws IOException {
 
-        //get the username of the loggedin user
         String username = principal.getName();
-        // find the user in the db
         User user = userService.getUserByUsername(username);
-        // update the user's name & "About" info
+
         user.setName(name);
         user.setAbout(about);
 
 
         //if new img OK
         if (!file.isEmpty()) {
-            //check valid format
+
             if (file.getContentType().equals("image/jpeg") || file.getContentType().equals("image/png")
                     || file.getContentType().equals("image/jpg")) {
                 // then updtae user prof
                 user.setImageUrl(file.getOriginalFilename());
                 //save
-                File saveFile = new ClassPathResource("static.img/img").getFile();
+                File saveFile = new ClassPathResource("static/img").getFile();
                 Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + file.getOriginalFilename());
                 Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             }
         }
-        //save the updated Us inf to DB
+        //DB
         userService.saveUser(user);
-        //set sms
         session.setAttribute("message", new Message("Profile updated successfully!", "alert- success"));
-        //profilep page
+
         return "prof/profile";
     }
 
 
-    //Manage password methods *
-
-
-    /**
-     * This method shows the user's settings page.
-     */
+    //настройки пользователя  стр= рользователь из бд текущего по имени
     @GetMapping("/settings")
     public String openSettings(Model model,
                                Principal principal,
@@ -375,18 +323,15 @@ public class UserController {
         String username = principal.getName();
         User user = userService.getUserByUsername(username);
 
-        // set the title for settng page
         model.addAttribute("title", "Settings");
 
-        // to display the settings
         return "prof/settings";
     }
 
 
-    /**
-     * This method processes the user's password change request
-     * Обрабатывает изменение пароля пользователя. Если старый пароль совпадает с текущим, новый пароль шифруется и сохраняется.
-     */
+    //This method processes the user's password change request
+    //Обрабатывает изменение пароля пользователя. Если старый пароль совпадает с текущим, новый пароль шифруется и сохраняется.
+
     @PostMapping("/change-password")
     public String changePassword(@RequestParam("oldPassword") String oldPassword,
                                  @RequestParam("newPassword") String newPassword,
@@ -398,87 +343,69 @@ public class UserController {
         String existingPassword = user.getPassword();
 
 
-        //check if the old one provided by the user matches the stored passwor
+        //check if the old one
         if (passwordEncoder.matches(oldPassword, existingPassword)) {
             //if yes- encode the new password and update
             user.setPassword(passwordEncoder.encode(newPassword));
-            //save update
+
             userService.saveUser(user);
-            //set sms
+
             session.setAttribute("message", new Message("Password is updated successfully!", " alert-success"));
         } else {
-            //if old one doesn't match - set error message
             session.setAttribute("message", new Message("Incorrect password!", "alert-danger"));
-            // go back to the setting page
-            return "redirect:/user/setting";
+            return "redirect:/user/settings";
         }
-        //if everything is OKAY  - then redirect to dashboard
-        return "redirect:/user/dashboards";
+        return "redirect:/user/dashboard";  //
     }
 
 
-    //Methods for password recovery*
-
-    /**
-     * This method shows the form for recovering a forgotten password.
-     */
+    // This method shows the form for recovering a forgotten password
     @GetMapping("/forgot-password")
     public String showForgotPasswordForm() {
-        //to display the forgot password form
         return "forgot_password_form";
     }
 
 
-    /**
-     * Обрабатывает ввод email для восстановления пароля, отображает секретный вопрос
-     */
+    //Обрабатывает ввод email для восстановления пароля, отображает секретный вопрос
     @PostMapping("/forgot-password")
     public String processForgotPasswordForm(@RequestParam("email") String email,
                                             Model model) {
-        //find the user in the db using their ameil
         User user = userService.findByEmail(email);
-        //if user not found display error sms
+
         if (user == null) {
             model.addAttribute("error", "No account found with this email address.");
-            //again display forgot password form
             return "forgot_password_form";
         }
         model.addAttribute("email", email);
         model.addAttribute("secretQuestion", user.getSecretQuestion());
-        //the view to verify the secret question
         return "verify_secret_question";
     }
 
 
-    /**
-     * Проверяет ответ на секретный вопрос. Если ответ правильный, отображается форма для сброса пароля
-     * This method checks the answer to the secret question and, if correct, shows the password reset form.
-     */
+    // Проверяет ответ на секретный вопрос. Если ответ правильный, отображается форма для сброса пароля
+    //This method checks the answer to the secret question and, if correct, shows the password reset form.
     @PostMapping("/verify-secret-question")
     public String verifySecretQuestion(@RequestParam("email") String email,
                                        @RequestParam("secretAnswer") String secretAnswer,
                                        Model model) {
-        User user = userService.findByEmail(email); // find user in db using their email
+        User user = userService.findByEmail(email);
 
-        //if not or not correct show an error sms
+        //if not
         if (user == null || !user.getSecretAnswer().equalsIgnoreCase(secretAnswer)) {
             model.addAttribute("error", "Invalid answer to the secret question.");
             model.addAttribute("email", email);
             model.addAttribute("secretQuestion", user.getSecretQuestion());
 
-            // return to verify the secret question again
             return "verify_secret_question";
         }
-        //if the answer is correct , pass the email to the model and show the password reset form
+//передача емейл в модель= проверка ответа / изменение пароля
         model.addAttribute("email", email);
         //the view to reset the password
         return "reset_password_form";
     }
 
 
-    /**
-     * This method handles the password reset and saves the new password in encrypted form.
-     */
+    //This method handles the password reset and saves the new password in encrypted form/сброс
     @PostMapping("/reset-password")
     public String resetPassword(@RequestParam("email") String email,
                                 @RequestParam("password") String password,
@@ -486,19 +413,15 @@ public class UserController {
 
         User user = userService.findByEmail(email);
 
-        //if the user not found, show an eeror sms and return to the forgot password form
         if (user == null) {
             model.addAttribute("error", "No account found with that email address.");
             return "forgot_password_form";
         }
-        //encrypt the new password and set it for the user
+//success
         user.setPassword(passwordEncoder.encode(password));
-        //save the update user info to the db
         userService.saveUser(user);
 
-        //set a success message
         model.addAttribute("message", "Password successfully updated");
-        // the login view
         return "login";
     }
 }

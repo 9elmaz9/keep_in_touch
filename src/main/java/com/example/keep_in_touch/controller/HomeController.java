@@ -28,144 +28,128 @@ public class HomeController {
     @Autowired
     private UserMapper userMapper;
 
-    //1
+
     //Show the home page
     @GetMapping("/")
-    public  String home(Model model,
-                        Principal principal) {
+    public String home(Model model,
+                       Principal principal) {
 
-        //if not logged in user then ->
-        if (principal == null){
+        if (principal == null) {
             model.addAttribute("user", null);
-        return "home";
-    }
+            return "home";
+        }
         //get the username
         String userName = principal.getName();
-        User user = userRepository.getUserByUserName(userName); // get data from db
-        model.addAttribute("usser", userMapper.toDTO(user)); // add the users info to the model
-        model.addAttribute("title" , "Home  - KEEP IN TOUCH");
+        User user = userRepository.getUserByUserName(userName);
+        model.addAttribute("user", userMapper.toDTO(user)); // add the users info to the model
+        model.addAttribute("title", "Home  - K I T");
+
         return "home";
     }
 
-
-    //2
-    //Shows the "About" page. If the user is logged in, adds their information to the page.
+//contact
     @GetMapping("/about")
     public String about(Model model,
-                        Principal principal){
-        //if the user isn't logged in ->
-        if(principal == null) {
+                        Principal principal) {
+        if (principal == null) {
             model.addAttribute("user", null);
             return "about";
         }
-        //if yes
         String userName = principal.getName();
-        User user = userRepository.getUserByUserName(userName); // retrive to db
-        model.addAttribute("user", userMapper.toDTO(user)); // add user information to the model
-        model.addAttribute("title", " About - KEEP IN TOUCH");
+        User user = userRepository.getUserByUserName(userName);
+        model.addAttribute("user", userMapper.toDTO(user));
+        model.addAttribute("title", " About - K I T");
 
-        return  "about";
+        return "about";
     }
 
 
-    //3
-    // Shows the registration page where users can sign up.
+    // траница регитрации = пустой обьект
     @GetMapping("/signup")
-    public String singup(Model model){
-        // adds an empty user form to the page
-        model.addAttribute("user" ,new UserDTO());
-        //sets the page title
-        model.addAttribute("title", "Register - KEEP IN TOUCH");
+    public String singup(Model model) {
+        model.addAttribute("user", new UserDTO());
+        model.addAttribute("title", "Register - K I T");
         // clears any previous messages
-        model.addAttribute("message" , null);
-        return  "singup";
+        model.addAttribute("message", null);
+        return "signup";
 
     }
 
-    //4 Shows the login page
+    //Метод отображает страницу входа, добавляет флаг для указания, что это страница входа,
     @GetMapping("/signin")
     public String login(Model model,
-                        HttpSession session){
-        //aAdds a flag to indicate it's the login page - state attribute
-        model.addAttribute("userLogin" , true);
-        //sets the page title
-        model.addAttribute("title" , " Login - KEEP IN TOUCH");
+                        HttpSession session) {
+        //aAdds a flag to indicate it's the login page
+        model.addAttribute("userLogin", true);
+        model.addAttribute("title", " Login - KEEP IN TOUCH");
 
-        //check if theres any validation message in the sseddipn and print
-        if(session.getAttribute("validation") != null){
+        //если в сессии есть валидация выводится в консоль
+        if (session.getAttribute("validation") != null) {
             String validationStatus = (String) session.getAttribute("validation");
-            System.out.println(validationStatus); //logs the validation status to the console
+            System.out.println(validationStatus);
         }
-        return  "login"; // page
+        return "login";
 
-        //Метод отображает страницу входа, добавляет флаг для указания, что это страница входа,
-        //устанавливает заголовок страницы и проверяет наличие сообщения валидации в сессии,
-        //выводя его в консоль, если оно существует. Затем возвращается представление страницы входа.
     }
 
-    //5
-    //Processes user registration
+
+    //Processes user registration . валидацтя агримент и кодировка пароля
     @PostMapping("/do-register")
     public String handleRegistration(@Valid @ModelAttribute("user") UserDTO userDTO,
                                      BindingResult result1,
                                      @RequestParam(value = "agreement",
-                                     defaultValue = "false") boolean agreement,
+                                             defaultValue = "false") boolean agreement,
                                      Model model,
-                                     HttpSession session){
+                                     HttpSession session) {
         try {
-            //check if the user agreed to the terms and conditions
-            //Проверка согласия пользователя с условиями использования.
-            if( !agreement){
-                throw new Exception("You have not acepted the terms and conditions!");
+            if (!agreement) {
+                throw new Exception("You have not accepted the terms and conditions!");
             }
-            if(result1.hasErrors()){
+            if (result1.hasErrors()) {
                 model.addAttribute("user", userDTO);
                 return "signup";
             }
 
             //map the dto to the user entity and sert default values
             User user = userMapper.toEntity(userDTO);
-            user.setEnabled(true); // enable the user
-            user.setRole("ROLE_USER");// set the role
-            user.setImageUrl("default.webp"); // set a def profile image
+            user.setEnabled(true);
+            user.setRole("ROLE_USER");
+            user.setImageUrl("default.webp");
             user.setPassword(passwordEncoder.encode(user.getPassword())); //encrypt the password
             user.setSecretAnswer(passwordEncoder.encode(user.getSecretAnswer()));// encrypt the secret answer
+            user.setValidated(1);
 
             //save yhe user to db
             User result = userRepository.save(user);
             model.addAttribute("user", new UserDTO());
-            model.addAttribute("message" , new Message("Registration completed successfully " , "alert-primary"));
+            model.addAttribute("message", new Message("Registration completed successfully ", "alert-primary"));
 
-            }catch (Exception e){
-            //handle any errors that come during registration
-            model.addAttribute("user" , userDTO);
-            model.addAttribute("message" , new Message("An error occured" +e.getMessage(),"alert-danger"));
+        } catch (Exception e) {
+            // any errors that come during registration
+            model.addAttribute("user", userDTO);
+            model.addAttribute("message", new Message("An error occurred" + e.getMessage(), "alert-danger"));
         }
 
-        return "singup"; // page
+        return "signup";
     }
 
-    //6
-    //Processes password change request.
-    @PostMapping("/change-password") //отправке формы
+
+    //Processes password change request
+    @PostMapping("/change-password")
     public String changePassword(@RequestParam("newPassword") String newPassword,
-                                 HttpSession session){
+                                 HttpSession session) {
 
-        //get the users email from the session
-        String email =(String) session.getAttribute("email");
+       // текузей сессии
+        String email = (String) session.getAttribute("email");
 
-        //find user by email in db
         User user = this.userRepository.getUserByUserName(email);
-        //encrypt the new password and set it for the user
+        //encrypt новый парольи и устанавливается
         user.setPassword(this.passwordEncoder.encode(newPassword));
 
 
-        // Save the updated user in the database.
         this.userRepository.save(user);
 
-        // add a success message to the session.
-        session.setAttribute("message" , new Message("Password changed successfully" , "alert-success"));
-        //redirect to the login page
+        session.setAttribute("message", new Message("Password changed successfully", "alert-success"));
         return "login";
     }
 }

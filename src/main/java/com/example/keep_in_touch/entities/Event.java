@@ -29,8 +29,7 @@ public class Event {
     @JoinColumn(name = "contact_id")
     private Contact contact;
 
-    //constructor
-    public Event() {}
+
 
 
     // Getter and setter methods for each attribute of the Event class

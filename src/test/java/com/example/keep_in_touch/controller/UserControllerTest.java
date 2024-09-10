@@ -91,9 +91,9 @@ public class UserControllerTest {
     @Test
     void testDashboard() throws Exception {
         mockMvc.perform(get("/user/dashboard") // симулировать HTTP GET
-                        .principal(() -> "elmazworkakk@gmail.com")) // завпрос от чьего имени
+                        .principal(() -> "elmazworkakk@gmail.com"))
                 .andExpect(status().isOk())  // 200 ок
-                .andExpect(view().name("prof/user_dashboard")) //Проверка имени представления/ view- HTML
+                .andExpect(view().name("prof/user_dashboard"))
                 .andExpect(model().attributeExists("user"))  // проверка содержит ли модель user аттрибут
                 .andExpect(model().attribute("user", userDTO));  // смотрим  user аtribute  матчит с юзер дто-модель должна содержать именно тот объект, который был подготовлен в рамках теста.
     }
@@ -121,10 +121,10 @@ public class UserControllerTest {
                         .file(mockFile)
                         .principal(() -> "elmazworkakk@gmail.com")
                         .param("name", "Test Contact"))
-                .andExpect(status().isOk())  // Проверяем, что запрос завершился успешно
-                .andExpect(view().name("prof/add_contact_form"))  // Проверяем, что возвращается правильное представление
+                .andExpect(status().isOk())
+                .andExpect(view().name("prof/add_contact_form"))
                 .andExpect(model().attributeExists("contact"))  // Проверяем, что модель содержит атрибут "contact"
-                .andExpect(request().sessionAttribute("message", org.hamcrest.Matchers.notNullValue()));  // Проверяем, что в сессии есть атрибут "message"
+                .andExpect(request().sessionAttribute("message", org.hamcrest.Matchers.notNullValue()));
     }
 
 

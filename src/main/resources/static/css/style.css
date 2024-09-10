@@ -1,47 +1,114 @@
-/* Устанавливаем фоновый цвет для body */
-body {
-    background: #e2e2e2 !important;  /* Светло-серый фон */
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower:wght@400;500;600;700;800&display=swap');
+
+
+/* Светлая тема (по умолчанию) */
+:root {
+    --primary-color: rgba(58, 44, 44, 0.37); /* Основной цвет */
+    --secondary-color: #666; /* Второстепенный цвет */
+    --background-color: #e2e2e2; /* Цвет фона для body */
+    --text-color: rgba(11, 12, 11, 0.89); /* Основной цвет текста */
+    --banner-background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.0)), url('../img/banner.jpg'); /* Фон баннера */
+    --card-background: #ffffff; /* Цвет фона карточек */
+    --login-box-background: #ffffff; /* Цвет фона формы логина */
+    --sidebar-background: #ffffff; /* Цвет фона сайдбара */
+    --sidebar-text-color: grey; /* Цвет текста в сайдбаре */
+    --sidebar-hover-text-color: black; /* Цвет текста при наведении на ссылки в сайдбаре */
+    --divider-color: #e2e2e2; /* Цвет разделителя в сайдбаре */
+    --search-result-background: white; /* Цвет фона для результатов поиска */
 }
 
+
+/* Устанавливаем фоновый цвет для body */
+body {
+    overflow: auto;
+    font-family: 'Indie Flower', cursive;
+    font-size: 26px;
+    background: var(--banner-background) !important; /* Используем баннер как фон */
+    background-size: cover; /* Масштабируем фон для покрытия всей области */
+    color: var(--text-color); /* Цвет текста */
+    padding: 0;
+    margin: 0;
+}
 
 /* Класс для элементов с основным фоном */
 .bg-primary {
-    background: #005100 !important;   /* Зеленый цвет фона */
+    background: var(--primary-color) !important; /* Основной цвет */
 }
-
 
 /* Стили для баннера */
 .banner {
-    width: 100%;   /* Ширина 100% */
-    height: 93vh;   /* Высота 93% от высоты окна браузера */
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    url('../img/banner.jpg');  /* Градиент и изображение фона */
-    background-size: cover;  /* Масштабирование фона для покрытия всей области */
-    color: white;  /* Белый цвет текста */
+    width: 100%; /* Ширина 100% */
+    min-height: 100vh; /* Высота 93% от высоты окна браузера */
+    background-position: top;
+    background-size: cover; /* Масштабирование фона для покрытия всей области */
+    color: var(--text-color); /* Цвет текста */
+    background-repeat: no-repeat;
 }
 
+/* Стили для карточек */
+.my-card {
+    padding: 20px; /* Внутренний отступ 20px */
+    background: var(--card-background); /* Цвет фона */
 
+}
+
+/* Стили для формы логина */
+#login .container #login-row #login-column #login-box {
+    margin-top: 90px; /* Отступ сверху */
+    margin-left: -20px;
+    max-width: 700px; /* Максимальная ширина 600px */
+    /*  border: 1px solid rgb(156, 156, 156);     Серый цвет границы
+    	background: rgba(255,255,255,0.5);  Используем цвет фона, чтобы избежать наложения без этой штукуи в констакте не фона за емейлом  */
+    width: 180%;
+
+    /*	background: rgba(255,255,255,0.5);  Используем цвет фона, чтобы избежать наложения без этой штукуи в констакте не фона за емейлом  */
+
+    .text-info {
+        color: black !important;
+
+    }
+
+    /* Применим зелёный цвет только для ссылок на регистрацию и забытый пароль */
+    a[href="/signup"], a[href="/forgot-password"] {
+        color: #4d9a14 !important; /* Зелёный цвет только для этих ссылок */
+        font-size: 20px; /* Размер текста */
+    }
+
+    min-height: 100vh; /* Высота 93% от высоты окна браузера */
+}
+
+/* Внутренние отступы для формы логина */
+#login .container #login-row #login-column #login-box #login-form {
+    padding: 30px;
+    font-size: 22px; /* надпись email / register */
+}
+
+/* Стили для ссылки на регистрацию в форме логина */
+#login .container #login-row #login-column #login-box #login-form #register-link {
+    margin-top: -85px;
+
+}
 
 /* Медиа-запрос для экранов с шириной меньше 1150px */
-@media only screen and (max-width : 1150px) {
+@media only screen and (max-width: 1150px) {
     .sidebar {
-        display : none;   /* Скрываем сайдбар */
-        width : 80% !important;   /* Ширина сайдбара 80% */
-        background : white;    /* Белый цвет фона */
-        height : 100vh;     /* Высота 100% окна браузера */
-        position : fixed;    /* Фиксированное позиционирование */
-        padding-top : 20px;   /* Внутренний отступ сверху 20px */
+        display: none; /* Скрываем сайдбар */
+        width: 80% !important; /* Ширина сайдбара 80% */
+        background: var(--sidebar-background); /* Цвет фона */
+        height: 100vh; /* Высота 100% окна браузера */
+        position: fixed; /* Фиксированное позиционирование */
+        padding-top: 20px; /* Внутренний отступ сверху 20px */
     }
+
     .content {
-        margin-left: 0 !important;    /* Убираем отступ слева */
+        margin-left: 0 !important; /* Убираем отступ слева */
     }
 }
-
 
 /* Стили для сайдбара */
 .sidebar {
     width: 20%; /* Ширина 20% */
-    background: white; /* Белый цвет фона */
+    background: var(--sidebar-background); /* Цвет фона */
     height: 100%; /* Высота 100% */
     position: fixed; /* Фиксированное позиционирование */
     padding-top: 25px; /* Внутренний отступ сверху 25px */
@@ -54,74 +121,215 @@ body {
     width: 100%; /* Ширина 100% */
     padding: 10px 25px; /* Внутренние отступы */
     text-decoration: none; /* Убираем подчеркивание */
-    color: grey; /* Серый цвет текста */
+    color: var(--sidebar-text-color); /* Цвет текста */
     font-weight: bold; /* Полужирный текст */
-    font-size: 20px; /* Размер шрифта 20px */
-}
+    font-size: 28px; /* Размер шрифта 20px   ЭТО ТО ЧТО В БОКОВОЙ ПАНЕЛИ  = сразу резко стало больше */
 
+}
 
 /* Изменение цвета текста при наведении на ссылки в сайдбаре */
 .sidebar a:hover {
-    color: black;  /* Черный цвет текста */
+    color: var(--sidebar-hover-text-color); /* Цвет текста при наведении */
 }
-
 
 /* Стили для разделителей в сайдбаре */
 .sidebar .divider {
     height: 2px; /* Высота 2px */
     width: 100%; /* Ширина 100% */
-    background: #e2e2e2; /* Светло-серый цвет фона */
+    background: var(--divider-color); /* Цвет разделителя */
     margin-top: 10px; /* Отступ сверху 10px */
 }
 
-
 /* Стили для кнопки закрытия сайдбара */
-.sidebar .cross-btn{
+.sidebar .cross-btn {
     position: absolute; /* Абсолютное позиционирование */
     top: 0; /* Привязка к верхнему краю */
-    right: 35px; /* Отступ справа 35px */
-    font-size: 36px; /* Размер шрифта 36px */
+    right: 15px; /* Отступ справа 35px */
+    font-size: 25px; /* Размер шрифта 36px */
     cursor: pointer; /* Указатель курсора */
 }
-
 
 /* Стили для контента */
 .content {
-    margin-left: 23%;  /* Отступ слева 23% */
+    margin-left: 23%; /* Отступ слева 23% */
 }
 
-
 /* Стили для иконки гамбургера */
-.content .hamburger{
+.content .hamburger {
     cursor: pointer; /* Указатель курсора */
 }
 
+/* Стили для изображения профиля */
+.profile_picture {
+    width: 40px; /* Ширина 40px */
+    height: 40px; /* Высота 40px */
+    object-fit: cover; /* Масштабирование изображения для покрытия */
+    border-radius: 50%; /* Круглая форма */
+}
 
 /* Стили для имени */
 .name_field {
-    font-weight: bold; /* Полужирный текст */
-    font-size: 18px; /* Размер шрифта 18px */
-    margin-left: 5px; /* Отступ слева 5px */
+    font-weight: bold;
+    font-size: 18px;
+    margin-left: 5px;
 }
 
 /* Стили для email */
 .email_field {
-    font-weight: 500; /* Полужирный текст */
-    font-size: 18px; /* Размер шрифта 18px */
-    margin-left: 5px; /* Отступ слева 5px */
+    font-weight: 500;
+    font-size: 18px;
+    margin-left: 5px;
 }
 
+/* Стили для контейнера поиска */
+.search-container {
+    position: relative;
+}
 
 /* Стили для календаря */
 #calendar {
-    max-width: 900px; /* Максимальная ширина 900px */
+    max-width: 1000px;
     margin: 0 auto; /* Центрирование */
+
+}
+
+/* Стили для результатов поиска */
+.search-result {
+    position: absolute;
+    background: var(--search-result-background);
+    width: 100%;
+    padding: 10px; /* Внутренний отступ 10px */
+    border: 1px solid grey; /* Серая граница */
+    display: none; /* Скрыть результаты поиска */
+}
+
+/* Стили для активных элементов */
+.active {
+    background: var(--primary-color) !important;
+    color: var(--text-color) !important;
+}
+
+
+.my-card {
+    background-color: rgba(255, 255, 255, 0);
+}
+
+
+.btn:not(:disabled):not(.disabled) {
+    cursor: pointer;
+}
+
+.btn-group-lg > .btn, .btn-lg {
+    padding: .5rem 1rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border-radius: .3rem;
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: #0ca912;
+    border-color: #6c757d;
+}
+
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+
+.pagination {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: .25rem;
+
 }
 
 
 
-/* Стили для активных элементов */
-.active {
-    background: #009688 !important; /* Зеленый фон */
-    color: white !important; /* Белый цвет текста */
+
+<!-- Часы CSS -->
+
+
+@import url('https://fonts.googleapis.com/css?family=Heebo:300&display=swap');
+.clock-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.clock {
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+.needle {
+    background-color: var(--primary-color);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 65px;
+    width: 3px;
+    transform-origin: bottom center;
+    transition: all 0.5s ease-in;
+}
+.needle.minute {
+    height: 100px;
+}
+.needle.second {
+    height: 100px;
+    background-color: #e74c3c;
+}
+.center-point {
+    background-color: #e74c3c;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+}
+.time {
+    font-size: 70px;
+    margin-top: 10px;
+}
+.date {
+    color: rgb(11, 12, 11);
+    font-size: 20px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+.date .circle {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border-radius: 50%;
+    height: 18px;
+    width: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 18px;
+    transition: all 0.5s ease-in;
+    font-size: 12px;
+}
+.clock-section {
+    margin-right: 50px;
 }

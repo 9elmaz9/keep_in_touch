@@ -12,25 +12,24 @@ import org.springframework.stereotype.Component;
 public class UserMapper {
 
     // Converts a User entity to a UserDTO object
-    //Преобразует сущность User в объект UserDTO,не раскрывая внутреннюю структуру entity
+    //не раскрывая внутреннюю структуру entity
     public UserDTO toDTO(User user) {
         UserDTO dto = new UserDTO();
-        // Call method to map common fields/Вызов метода для сопоставления общих полей
-        mapCommonFields(user, dto);
-        // Set the value to validated, check for null
-        // Установка значения validated, проверка на null - чтобы избежать возможных ошибок при преобразовании данных.
+
+        mapCommonFields(user, dto); // загрузка инфы из ю в д
+
         dto.setValidated(user.getValidated() != null ? user.getValidated() : 0);
         return dto;
     }
 
 
-    //Converts a UserDTO object to a User entity/Преобразует объект UserDTO в сущность User
+    //из UserDTO в сущность User
     public User toEntity(UserDTO dto) {
         User user = new User();
-        mapCommonField(dto, user); // уже все ок !
+
+        mapCommonField(dto, user);
         user.setValidated(dto.getValidated());
-        // Логирование
-        // logger.info("Converted UserDTO to User with validated status: " + user.getValidated());
+
         return user;
     }
 
@@ -46,13 +45,15 @@ public class UserMapper {
         dto.setImageUrl(user.getImageUrl());
         dto.setAbout(user.getAbout());
         dto.setSecretQuestion(user.getSecretQuestion());
-        dto.setSecretQuestion(user.getSecretQuestion());
+        dto.setSecretAnswer(user.getSecretAnswer());
+
     }
 
 
     //Маппинг общих полей из объекта UserDTO в сущность User
     //Mapping common fields from UserDTO object  to User entity
     private void mapCommonField(UserDTO dto, User user) {
+
         user.setId(dto.getId());
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
@@ -62,8 +63,7 @@ public class UserMapper {
         user.setImageUrl(dto.getImageUrl());
         user.setAbout(dto.getAbout());
         user.setSecretQuestion(dto.getSecretQuestion());
-        user.setSecretQuestion(dto.getSecretQuestion());
-
+        user.setSecretAnswer(dto.getSecretAnswer());
 
     }
 

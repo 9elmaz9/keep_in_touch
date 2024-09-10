@@ -5,7 +5,62 @@
     <title>Document</title>
 </head>
 <body>
+
 <section>
+    <div id="login">
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <div th:if="${session.message}" class="alert alert-dismissible fade show mt-3" th:classappend="${session.message.type}" role="alert">
+                            <span th:text="${session.message.content}"></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
+                        </div>
+                        <div th:if="${session.validation}" class="mt-3 container text-center">
+                            <span><a class="btn btn-block btn-warning p-3" th:href="@{/verify-email}">Validate Your Email</a></span>
+                            <th:block th:text="${@sessionHelper.removeValidationFromSession()}"></th:block>
+                        </div>
+                        <form id="login-form" class="form" th:action="@{/do-login}" method="post"  style="color: rgba(11,12,11,0.89); font-size: 28px;">
+                            <h3 class="text-center text-info" style="color: rgba(11,12,11,0.89); font-size: 58px;">Login</h3>
+                            <div th:if="${param.error}" class="alert alert-danger">Invalid login credentials !!!</div>
+                            <div th:if="${param.logout}" class="alert alert-primary">You are successfully logged out ...</div>
+                            <div class="form-group">
+                                <label for="email" class="text-info">Email:</label><br>
+                                <input type="email" name="username" id="email" class="form-control" >
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="text-info">Password:</label><br>
+                                <input type="password" name="password" id="password" class="form-control">
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-md-4">
+                                    <div>
+                                        <a href="/signup" class="text-info">Register here</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group container">
+                                        <input type="submit" name="submit" class="btn btn-lg btn-info btn-md" value="Login" style="background-color: #ff5722; color: white; font-size: 20px; padding: 15px 30px;">
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div>
+                                        <a href="/forgot-password" class="text-info" >Forgot Password</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+
 </body>
 </html>

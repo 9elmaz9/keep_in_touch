@@ -29,7 +29,7 @@ public interface UserRepository extends JpaRepository<User,Integer> {  // CRUD (
 
     //same as findAllUsers , uses JPQL
     @Query("from User u")
-    Page  findAll(Pageable pageable);
+    Page<User> findAll(Pageable pageable);
 
 
     //searches for a user by their email and secret question/useful for password recovery or user verification functions
