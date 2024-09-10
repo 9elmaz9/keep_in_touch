@@ -1,5 +1,9 @@
 #### Keep in Touch" App Project - Concept Version
+<<<<<<< HEAD
 ![start ]
+=======
+![start](https://i.ibb.co/kmYs1p2/start.png)
+>>>>>>> 4325e34e004e9bfcd33fdef6cd2d815f6b332c2b
 
 
 
@@ -216,11 +220,11 @@ To ensure everything is working as expected, you can run the pre-built tests inc
 
 ---
 
-### 7. Screenshots 🎨 
+<!-- ### 7. Screenshots 🎨 
 
 Add relevant screenshots to give users an idea of how the application looks. Recommended screenshots:
 
-<!-- - **Login Page** ![Login Page Screenshot](#)
+ - **Login Page** ![Login Page Screenshot](#)
 - **User Dashboard** ![User Dashboard Screenshot](#)
 - **Contact Management** ![Contact Management Screenshot](#)
 - **Event Calendar** ![Event Calendar Screenshot](#)
