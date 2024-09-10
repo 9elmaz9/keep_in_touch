@@ -185,7 +185,7 @@ To run **Keep in Touch**, ensure you have the following installed:
 - **Maven 3.6+**
 
 ### 2. Clone the Repository
-git clone https://github.com/your-repository/keep-in-touch.git
+git clone https://github.com/9elmaz9/keep_in_touch
 cd keep-in-touch
 
 ---
