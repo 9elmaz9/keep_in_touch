@@ -78,7 +78,7 @@ Your data’s safety is our top priority:
 - **BCrypt Encryption**: Passwords and security question answers are encrypted using industry-standard algorithms.
 - **User Roles**: Granular control over user permissions (e.g., Admin, User).
 
-![Login/Registration Screenshot](#)
+<!-- ![Login/Registration Screenshot](#) -->
 
 ---
 
