@@ -1,7 +1,6 @@
 
-![start](https://i.ibb.co/kmYs1p2/start.png)
-
 # 🎉 Keep in Touch - Event & Contact Management Application 🎉
+![start](https://i.ibb.co/kmYs1p2/start.png)
 
 Keep in Touch is a **comprehensive web application** that empowers users to create and manage their **events** and **personal contacts** with ease. Designed to help users **organize their appointments**, Keep in Touch includes a **built-in calendar** for better planning and goal achievement.
 
