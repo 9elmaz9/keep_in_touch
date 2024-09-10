@@ -1,9 +1,8 @@
 #### Keep in Touch" App Project - Concept Version
-<<<<<<< HEAD
-![start ]
-=======
+
+
 ![start](https://i.ibb.co/kmYs1p2/start.png)
->>>>>>> 4325e34e004e9bfcd33fdef6cd2d815f6b332c2b
+
 
 
 
