@@ -1,5 +1,5 @@
 #### Keep in Touch" App Project - Concept Version
-![start ](![img.png](img.png))
+![start ]
 
 
 
@@ -59,7 +59,7 @@ Easily manage all your events and appointments:
 - **Delete**: Remove canceled events.
 - **View**: See a comprehensive list of all events in a calendar or list format.
 
-![Event Management Screenshot](#)
+<!-- ![Event Management Screenshot](#) -->
 
 ### 2. Contact Management 📇
 Keep your contacts organized:
@@ -68,7 +68,7 @@ Keep your contacts organized:
 - **Delete Contact**: Remove outdated or irrelevant contacts.
 - **Search Contact**: Easily find specific contacts by name or other details.
 
-![Contact Management Screenshot](#)
+<!-- ![Contact Management Screenshot](#) -->
 
 ### 3. Admin Dashboard 🛡️
 The admin panel provides extra control over the platform:
@@ -76,7 +76,7 @@ The admin panel provides extra control over the platform:
 - **Monitor Events and Contacts**: Ensure proper usage of the platform.
 - **Moderation**: Review and moderate user-generated content.
 
-![Admin Dashboard Screenshot](#)
+<!-- ![Admin Dashboard Screenshot](#) -->
 
 ### 4. Secure Authentication & Authorization 🔐
 Your data’s safety is our top priority:
@@ -216,17 +216,17 @@ To ensure everything is working as expected, you can run the pre-built tests inc
 
 ---
 
-### 7. Screenshots 🎨
+### 7. Screenshots 🎨 
 
 Add relevant screenshots to give users an idea of how the application looks. Recommended screenshots:
 
-- **Login Page** ![Login Page Screenshot](#)
+<!-- - **Login Page** ![Login Page Screenshot](#)
 - **User Dashboard** ![User Dashboard Screenshot](#)
 - **Contact Management** ![Contact Management Screenshot](#)
 - **Event Calendar** ![Event Calendar Screenshot](#)
 - **Admin Dashboard** ![Admin Dashboard Screenshot](#)
 
----
+---   -->
 
 ### 8. License 📄
 
