@@ -185,8 +185,8 @@ To run **Keep in Touch**, ensure you have the following installed:
 - **Maven 3.6+**
 
 ### 2. Clone the Repository
-git clone https://github.com/9elmaz9/keep_in_touch
-cd keep-in-touch
+- git clone https://github.com/9elmaz9/keep_in_touch
+- cd keep-in-touch
 
 ---
 ### 3. Database Setup 🛠️ (External Properties)
@@ -194,38 +194,38 @@ cd keep-in-touch
 To set up your MySQL database for **Keep in Touch** using external properties, follow these steps:
 
 1. **Create a new MySQL database**:
-    - Open your MySQL terminal and run the following command to create the database:
-      ```sql
-      CREATE DATABASE keep_in_touch;
-      ```
+   - Open your MySQL terminal and run the following command to create the database:
+     ```sql
+     CREATE DATABASE keep_in_touch;
+     ```
 
 2. **Create an external properties file**:
-    - Store your database configuration in an **external `application.properties`** or `application.yml` file. This file should be located outside the application JAR for easier maintenance.
+   - Store your database configuration in an **external `application.properties`** or `application.yml` file. This file should be located outside the application JAR for easier maintenance.
 
 3. **Configure the external properties**:
-    - Add the following properties to your external `application.properties` file:
+   - Add the following properties to your external `application.properties` file:
 
-      ```properties
-      spring.datasource.url=jdbc:mysql://localhost:3306/keep_in_touch
-      spring.datasource.username=your_username
-      spring.datasource.password=your_password
-      ```
+     ```properties
+     spring.datasource.url=jdbc:mysql://localhost:3306/keep_in_touch
+     spring.datasource.username=your_username
+     spring.datasource.password=your_password
+     ```
 
-    - Ensure the `url`, `username`, and `password` fields are updated with your MySQL credentials.
+   - Ensure the `url`, `username`, and `password` fields are updated with your MySQL credentials.
 
 4. **Point to the external configuration**:
-    - When starting your Spring Boot application, specify the location of your external `application.properties` file:
-      ```bash
-      java -jar your-app.jar --spring.config.location=file:/path/to/your/application.properties
-      ```
+   - When starting your Spring Boot application, specify the location of your external `application.properties` file:
+     ```bash
+     java -jar your-app.jar --spring.config.location=file:/path/to/your/application.properties
+     ```
 
-    - Replace `/path/to/your/application.properties` with the actual path to your external configuration file.
+   - Replace `/path/to/your/application.properties` with the actual path to your external configuration file.
 
 5. **Run database migrations** (if applicable):
-    - If you're using database migrations (e.g., Flyway or Liquibase), ensure that your external configuration file includes migration settings, or they will run automatically when you start the application.
+   - If you're using database migrations (e.g., Flyway or Liquibase), ensure that your external configuration file includes migration settings, or they will run automatically when you start the application.
 
 6. **Verify the connection**:
-    - Start your MySQL server and run the application with the external configuration file. Verify that the tables are generated and that the connection is successful.
+   - Start your MySQL server and run the application with the external configuration file. Verify that the tables are generated and that the connection is successful.
 
 By using an external `application.properties` file, you can easily manage your database configurations without modifying the application code itself.
 
@@ -236,26 +236,26 @@ By using an external `application.properties` file, you can easily manage your d
 Now that the database is configured, you're ready to build and run **Keep in Touch**. Follow these steps:
 
 1. **Build the application** using Maven:
-    - Run the following command to compile the project and package it into a runnable JAR file:
-      ```bash
-      mvn clean install
-      ```
+   - Run the following command to compile the project and package it into a runnable JAR file:
+     ```bash
+     mvn clean install
+     ```
 
 2. **Run the application**:
-    - Use the following command to start the application with your external properties file:
-      ```bash
-      java -jar target/your-app.jar --spring.config.location=file:/path/to/your/application.properties
-      ```
+   - Use the following command to start the application with your external properties file:
+     ```bash
+     java -jar target/your-app.jar --spring.config.location=file:/path/to/your/application.properties
+     ```
 
-    - Ensure the path to the `application.properties` file is correct.
+   - Ensure the path to the `application.properties` file is correct.
 
 3. **Access the application**:
-    - Once the application is running, open your browser and go to:
-      ```
-      http://localhost:8080
-      ```
+   - Once the application is running, open your browser and go to:
+     ```
+     http://localhost:8080
+     ```
 
-    - This will take you to the home page of **Keep in Touch**.
+   - This will take you to the home page of **Keep in Touch**.
 
 ---
 
@@ -264,89 +264,26 @@ Now that the database is configured, you're ready to build and run **Keep in Tou
 To ensure everything is working as expected, you can run the pre-built tests included in the project:
 
 1. **Run Unit Tests**:
-    - Use the following command to execute all unit tests:
-      ```bash
-      mvn test
-      ```
+   - Use the following command to execute all unit tests:
+     ```bash
+     mvn test
+     ```
 
 2. **Verify Test Results**:
-    - Ensure that all tests pass successfully. This will confirm that the core features (contacts, events, authentication) work correctly.
+   - Ensure that all tests pass successfully. This will confirm that the core features (contacts, events, authentication) work correctly.
 
 ---
 
-### 6. Deploying the Application 🚀
+### 6. API Documentation 📜
 
-To deploy **Keep in Touch** to a live environment, follow these steps:
+**Keep in Touch** includes a REST API for developers to integrate with other systems or for frontend communication.
 
-1. **Prepare for Deployment**:
-    - Ensure the application is packaged as a JAR file using Maven:
-      ```bash
-      mvn package
-      ```
-
-2. **Deploy on a Server**:
-    - Copy the JAR file to your production server.
-    - Use the following command to run the application on the server, ensuring you reference the external properties file:
-      ```bash
-      java -jar your-app.jar --spring.config.location=file:/path/to/your/application.properties
-      ```
-
-3. **Configure Environment Variables**:
-    - For security, consider moving sensitive database credentials to environment variables:
-      ```bash
-      export DB_USERNAME=your_username
-      export DB_PASSWORD=your_password
-      ```
-
-4. **Monitor Application Logs**:
-    - To ensure the application is running smoothly, monitor the logs by running:
-      ```bash
-      tail -f /path/to/logfile.log
-      ```
+1. **API Endpoints**:
+   - Explore the available endpoints for managing users, contacts, and events.
 
 ---
 
-### 7. Further Configuration ⚙️
-
-You can customize the application by updating the following settings in your external `application.properties`:
-
-1. **Server Port**:
-    - Change the port if necessary:
-      ```properties
-      server.port=9090
-      ```
-
-2. **Logging Levels**:
-    - Adjust logging levels for debugging:
-      ```properties
-      logging.level.org.springframework=DEBUG
-      ```
-
-3. **Security Settings**:
-    - Customize the security configuration to enable/disable specific endpoints or features:
-      ```properties
-      spring.security.user.name=admin
-      spring.security.user.password=admin123
-      ```
-
----
-
-### 8. API Documentation 📜
-
-**Keep in Touch** includes a REST API for developers to integrate with other systems or for frontend communication. API documentation is automatically generated using **SpringDoc OpenAPI**.
-
-1. **Access Swagger UI**:
-    - After running the application, navigate to:
-      ```
-      http://localhost:8080/swagger-ui.html
-      ```
-
-2. **API Endpoints**:
-    - Explore the available endpoints for managing users, contacts, and events. Swagger UI provides an interactive interface for testing the API.
-
----
-
-### 9. Screenshots 🎨
+### 7. Screenshots 🎨
 
 Add relevant screenshots to give users an idea of how the application looks. Recommended screenshots:
 
@@ -358,13 +295,13 @@ Add relevant screenshots to give users an idea of how the application looks. Rec
 
 ---
 
-### 10. License 📄
+### 8. License 📄
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
 ---
 
-### 11. Final Notes 📢
+### 9. Final Notes 📢
 
 **Keep in Touch** is a powerful event and contact management system designed for personal and professional use. With a secure authentication system, admin functionalities, and a REST API, it offers flexibility and security for managing personal information.
 
@@ -374,7 +311,3 @@ In future updates, expect features like:
 - **Integration with Google Calendar**: Sync your events with Google Calendar for seamless organization.
 
 Stay tuned for more updates!
-
-
-
-
