@@ -280,18 +280,23 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 
 ###  Register & PAssword
-![uset8](https://i.ibb.co/NNhgTvc/useeeeeeeeeer.png)
-![uset8](https://i.ibb.co/NNhgTvc/useeeeeeeeeer.png)
-![uset8](https://i.ibb.co/McHj0mH/AA.png)
-![uset8](https://i.ibb.co/rxcXVMC/register-succes.png)
-![uset8](https://i.ibb.co/MBtSXkL/PHOEBE1.png)
-![uset8](https://i.ibb.co/F8FWJwt/Phoebe.png)
-![uset8](https://i.ibb.co/QHKdqbN/change-PAsswoed.png)
-![uset8](https://i.ibb.co/cLwKyQZ/LOGGGGOUT.png)
-![uset8](https://i.ibb.co/nDw4p15/forgotpassword.png)
-![uset8](https://i.ibb.co/d56j404/answer.png)
+![uset85](https://i.ibb.co/NNhgTvc/useeeeeeeeeer.png)
+![uset84](https://i.ibb.co/NNhgTvc/useeeeeeeeeer.png)
+![uset81](https://i.ibb.co/McHj0mH/AA.png)
+![uset82](https://i.ibb.co/rxcXVMC/register-succes.png)
+![uset83](https://i.ibb.co/MBtSXkL/PHOEBE1.png)
+![uset89](https://i.ibb.co/F8FWJwt/Phoebe.png)
 
-![uset8](https://i.ibb.co/NCCzMFW/reset.png)
+![uset86](https://i.ibb.co/v304zHX/PH.png)
+
+
+![uset887](https://i.ibb.co/QHKdqbN/change-PAsswoed.png)
+
+![uset888](https://i.ibb.co/cLwKyQZ/LOGGGGOUT.png)
+![uset883](https://i.ibb.co/nDw4p15/forgotpassword.png)
+![uset833](https://i.ibb.co/d56j404/answer.png)
+
+![uset853](https://i.ibb.co/NCCzMFW/reset.png)
 
 ![uset8]()
 
