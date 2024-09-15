@@ -234,8 +234,8 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ![start](https://i.ibb.co/kmYs1p2/start.png)
 ![admin](https://i.ibb.co/HPWnbwd/singin.png)
 ![admin1](https://i.ibb.co/Jt33zYW/ADMINNNNN.png)
-![admin2]()
-![admin3]()
+![admin2](https://i.ibb.co/GF77hbk/admin.png)
+![admin3](https://i.ibb.co/3WzCrtx/admin-Dashboard.png)
 
 
 ###  User&Event 
