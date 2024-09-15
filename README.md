@@ -232,8 +232,8 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 <!-- ![Login/Registration Screenshot](#) -->
 ###  Admin 
 ![start](https://i.ibb.co/kmYs1p2/start.png)
-![admin](https://ibb.co/B6XqQWN)
-![admin1](https://ibb.co/02ssf0p.png)
+![admin](https://i.ibb.co/HPWnbwd/singin.png)
+![admin1](https://i.ibb.co/Jt33zYW/ADMINNNNN.png)
 ![admin2]()
 ![admin3]()
 
