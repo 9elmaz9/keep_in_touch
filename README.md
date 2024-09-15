@@ -283,13 +283,14 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ![uset83](https://i.ibb.co/MBtSXkL/PHOEBE1.png)
 ![uset89](https://i.ibb.co/F8FWJwt/Phoebe.png)
 
-![uset86](https://i.ibb.co/v304zHX/PH.png)
 
 
 ![uset887](https://i.ibb.co/QHKdqbN/change-PAsswoed.png)
+![uset86](https://i.ibb.co/v304zHX/PH.png)
+
 
 ![uset888](https://i.ibb.co/cLwKyQZ/LOGGGGOUT.png)
-![uset883](https://i.ibb.co/nDw4p15/forgotpassword.png)
+![uset883](https://i.ibb.co/NTC4cGN/forgot-password1.png)
 ![uset833](https://i.ibb.co/d56j404/answer.png)
 
 ![uset853](https://i.ibb.co/NCCzMFW/reset.png)
