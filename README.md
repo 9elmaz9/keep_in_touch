@@ -239,7 +239,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ![admin4](https://i.ibb.co/bgppRvz/deleteus-Admin.png)
 
 
-###  User&Event 
+###  User & Event 
 ![user](https://i.ibb.co/NNhgTvc/useeeeeeeeeer.png)
 ![user6](https://i.ibb.co/5Bb66Rh/userProf.png)
 
@@ -266,17 +266,40 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ![uset8](https://i.ibb.co/pnvMjrq/elmaz4.png)
 
 ![uset8](https://i.ibb.co/996cZRh/ELMAZ.png)
-![uset8]()
+![uset8](https://i.ibb.co/x2R7sPh/ELMAZ2.png)
 
-![uset8]()
-![uset8]()
-
-![uset8]()
-
-![uset8]()
+![uset8](https://i.ibb.co/QHKdqbN/change-PAsswoed.png)
+![uset8](https://i.ibb.co/v3stpDV/succsesfully.png)
 
 ![uset8]()
 
+![uset8]()
+
+![uset8]()
+
+
+
+###  Register & PAssword
+![uset8](https://i.ibb.co/NNhgTvc/useeeeeeeeeer.png)
+![uset8](https://i.ibb.co/NNhgTvc/useeeeeeeeeer.png)
+![uset8](https://i.ibb.co/McHj0mH/AA.png)
+![uset8](https://i.ibb.co/rxcXVMC/register-succes.png)
+![uset8](https://i.ibb.co/MBtSXkL/PHOEBE1.png)
+![uset8](https://i.ibb.co/F8FWJwt/Phoebe.png)
+![uset8](https://i.ibb.co/QHKdqbN/change-PAsswoed.png)
+![uset8](https://i.ibb.co/cLwKyQZ/LOGGGGOUT.png)
+![uset8](https://i.ibb.co/nDw4p15/forgotpassword.png)
+![uset8](https://i.ibb.co/d56j404/answer.png)
+
+![uset8](https://i.ibb.co/NCCzMFW/reset.png)
+
+![uset8]()
+
+![uset8]()
+
+![uset8]()
+
+![uset8]()
 
 
 
