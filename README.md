@@ -229,6 +229,13 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ---
 
+### 9. Final Notes 📢
+
+**Keep in Touch** is a powerful event and contact management system designed for personal and professional use. With a secure authentication system, admin functionalities, and a REST API, it offers flexibility and security for managing personal information
+
+Stay tuned for more updates!
+
+
 <!-- ![Login/Registration Screenshot](#) -->
 ###  Admin 
 ![start](https://i.ibb.co/kmYs1p2/start.png)
@@ -297,19 +304,9 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ![uset8](https://i.ibb.co/zsFfs53/succsed1.png)
 
-![uset8]()
+![uset8](https://i.ibb.co/6mNqH20/2.png)
 
-![uset8]()
-
-![uset8]()
-
-
-
-![uset8]()
-
-![uset8]()
-
-![uset8]()
+![uset8](https://i.ibb.co/tqVnSLk/3.png)
 
 
 
@@ -321,8 +318,3 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 
 
-### 9. Final Notes 📢
-
-**Keep in Touch** is a powerful event and contact management system designed for personal and professional use. With a secure authentication system, admin functionalities, and a REST API, it offers flexibility and security for managing personal information
-
-Stay tuned for more updates!
