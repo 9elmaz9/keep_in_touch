@@ -284,8 +284,7 @@ Stay tuned for more updates!
 
 
 
-###  Register & PAssword
-![uset85](https://i.ibb.co/NNhgTvc/useeeeeeeeeer.png)
+###  Register & Password
 ![uset84](https://i.ibb.co/NNhgTvc/useeeeeeeeeer.png)
 ![uset81](https://i.ibb.co/McHj0mH/AA.png)
 ![uset82](https://i.ibb.co/rxcXVMC/register-succes.png)
