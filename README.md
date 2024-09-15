@@ -232,10 +232,10 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 <!-- ![Login/Registration Screenshot](#) -->
 ###  Admin 
 ![start](https://i.ibb.co/kmYs1p2/start.png)
-![start](https://ibb.co/B6XqQWN)
-![start](https://ibb.co/02ssf0p)
-![start]()
-![start]()
+![admin](https://ibb.co/B6XqQWN)
+![admin1](https://ibb.co/02ssf0p)
+![admin2]()
+![admin3]()
 
 
 ###  User&Event 
