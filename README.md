@@ -6,7 +6,7 @@ Keep in Touch is a **comprehensive web application** that empowers users to crea
 
 Whether you need to **schedule events** or **track important contacts**, Keep in Touch provides the tools to make it happen seamlessly.
 
-[Открой PDF файл](Elmaz_Dzhelianchyk_KEEP_IN_TOUCH.pdf)
+[ Discover the  PDF Here](Elmaz_Dzhelianchyk_KEEP_IN_TOUCH.pdf)
 
 
 ---
