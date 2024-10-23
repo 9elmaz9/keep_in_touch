@@ -36,7 +36,6 @@ public class UserServiceImplTest {
     private UserServiceImpl userService;
 
 
-    //инициализирует мок-объекты
     @BeforeEach
     public void setUp(){
         MockitoAnnotations.openMocks(this);
@@ -128,10 +127,8 @@ public class UserServiceImplTest {
         User user= new User();
         user.setSecretAnswer("encodedAnswer");
 
-        // метод matches возвращает true при правильном ответе
         when(passwordEncoder.matches("testAnswer", "encodedAnswer")).thenReturn(true);
 
-        //проверяется, что результат проверки соответствует ожиданиям (true)
         boolean result = userService.verifySecretAnswer(user, "testAnswer");
         assertTrue(result);
     }

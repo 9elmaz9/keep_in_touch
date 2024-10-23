@@ -54,25 +54,21 @@ public class UserControllerTest {
     private UserDTO userDTO;
     private Contact contact;
 
-    //запскается до всего теста что бы внедрить туда данные
     @BeforeEach
     void setUp() {
         // инициализация  MockMvc для теста
         mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
 
-        // создаем юзера для теста
         user = new User();
         user.setId(1);
         user.setName("Test User");
         user.setEmail("elmazworkakk@gmail.com");
 
-        // cоздаем дто
         userDTO = new UserDTO();
         userDTO.setId(1);
         userDTO.setName("Test User ");
         userDTO.setEmail("elmazworkakk@gmail.com");
 
-        // создаем Contact
         contact = new Contact();
         contact.setCid(1);
         contact.setName("Test Contact");
@@ -163,6 +159,7 @@ public class UserControllerTest {
                 .andExpect(model().attribute("contact", contact));
     }
 
+    // отображает профиль пользователя.
     @Test
     void testProfileHandler() throws Exception {
         mockMvc.perform(get("/user/profile")
