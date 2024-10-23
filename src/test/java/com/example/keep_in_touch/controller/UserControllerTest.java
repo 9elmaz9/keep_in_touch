@@ -163,7 +163,6 @@ public class UserControllerTest {
                 .andExpect(model().attribute("contact", contact));
     }
 
-    // отображает профиль пользователя.
     @Test
     void testProfileHandler() throws Exception {
         mockMvc.perform(get("/user/profile")
