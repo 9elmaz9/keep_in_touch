@@ -114,7 +114,6 @@ public class UserServiceImplTest {
 
         when(userRepository.findById(1)).thenReturn(Optional.of(user)); //  возвращает объект user в обертке Optional
 
-        //soo   проверяется, что ID пользователя совпадает с ожидаемым
         Optional<User> result = userService.getUserById(1);
         assertTrue(result.isPresent());
         assertEquals(1,result.get().getId());
