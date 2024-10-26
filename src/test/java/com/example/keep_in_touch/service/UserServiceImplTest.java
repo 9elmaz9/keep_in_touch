@@ -119,7 +119,6 @@ public class UserServiceImplTest {
         assertEquals(1,result.get().getId());
     }
 
-    // правильно ли проверяется секретный ответ пользователя
     @Test
     public void testVerifySecretAnswer(){
 
