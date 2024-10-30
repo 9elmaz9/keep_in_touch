@@ -94,11 +94,10 @@ public class SearchControllerTest {
         when(userRepository.findByNameContaining(anyString())).thenReturn(users);
         when(userMapper.toDTO(searchedUser)).thenReturn(userDTO);
 
-        mockMvc.perform(get("/search-user/Elmaz") // Проверьте правильность маршрута
+        mockMvc.perform(get("/search-user/Elmaz")
                         .principal(() -> "testuser"))
                 .andExpect(status().isOk())
-                .andExpect(content().json("[{\"name\":\"Elmaz Dzhelianchyk\"}]")); // Убедитесь, что формат JSON правильный
+                .andExpect(content().json("[{\"name\":\"Elmaz Dzhelianchyk\"}]"));
     }
-
 
 }
