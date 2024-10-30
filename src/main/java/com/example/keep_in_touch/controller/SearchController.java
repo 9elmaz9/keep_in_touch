@@ -61,7 +61,7 @@ public class SearchController {
 
 
     //Ищет пользователей по имени, преобразует их в DTO и возвращает в формате JSON. конткт текущего пользователя
-    @GetMapping("/search-user{query}")
+    @GetMapping("/search-user/{query}")
     public ResponseEntity<?> searchUserHandler(@PathVariable("query") String query,
                                                Principal principal) {
 
